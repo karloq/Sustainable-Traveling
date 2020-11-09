@@ -11,7 +11,30 @@
         android:layout_alignParentStart="true"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:backgroundTint="@color/colorAccent"/>
+        android:backgroundTint="@color/colorAccent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/travel_planning"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="40dp"
+            />
+
+        <ImageButton
+            android:id="@+id/button_search_menu"
+            android:layout_marginTop="26dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/menu"
+            android:backgroundTint="@color/transparent"
+            />
+
+
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_alignParentTop="true"
@@ -22,6 +45,7 @@
         android:layout_marginStart="20dp"
         app:cardCornerRadius="12dp"
         android:backgroundTint="@color/colorPrimary">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -58,7 +82,7 @@
                 android:textSize="16sp"
                 android:background="@android:color/transparent"
                 android:layout_toEndOf="@+id/textview_search_from"
-                android:hint="Stop/Address/Place"/>
+                android:hint="@string/stop_address_place"/>
 
             <EditText
                 android:id="@+id/edittext_search_to"
@@ -70,7 +94,7 @@
                 android:textSize="16sp"
                 android:background="@android:color/transparent"
                 android:layout_toEndOf="@+id/textview_search_to"
-                android:hint="Stop/Address/Place"/>
+                android:hint="@string/stop_address_place"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -79,9 +103,39 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="100dp"
-        android:layout_width="100dp"
+        android:layout_marginEnd="-12dp"
+        android:layout_width="112dp"
         android:layout_height="100dp"
         app:cardCornerRadius="12dp"
-        android:backgroundTint="@color/colorPrimary"/>
+        android:backgroundTint="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/button_search_filter"
+                android:layout_width="52dp"
+                android:layout_height="47dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/filter" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_search_filter"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="8dp"
+                android:text="Filters"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"/>
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

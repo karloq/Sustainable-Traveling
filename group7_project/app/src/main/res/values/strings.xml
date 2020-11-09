@@ -2,4 +2,7 @@
     <string name="app_name">group7_project</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="travel_planning">Travel Planning</string>
+    <string name="stop_address_place">Stop/Address/Place</string>
+    <string name="stop_address_place">Stop/Address/Place</string>
 </resources>
