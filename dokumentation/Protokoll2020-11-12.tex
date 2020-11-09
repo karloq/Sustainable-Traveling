@@ -1,0 +1,75 @@
+%LaTeX-inställningar%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Kompliera med pdflatex
+\documentclass[a4paper, 10pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[swedish]{babel}
+\usepackage{graphicx}
+
+\usepackage{geometry} 
+\geometry{a4paper} 
+\geometry{margin=1in}
+\setcounter{section}{1}
+
+\newcommand{\tid}{09:00}
+\newcommand{\plats}{Hemifrån}
+\newcommand{\datum}{2020-11-09}
+
+\newcommand{\sammankallande}{\textit{Johan Atterfors}}
+
+%Snabbkommandon
+\newcommand{\sect}[1][]{\section*{\S \thesection. #1} \stepcounter{section}}
+\newcommand{\para}{\paragraph \noindent}
+\newcommand{\ssect}[1][]{\subsection*{#1}}
+
+\begin{document}
+
+\section*{\center Kallelse till veckomöte} 
+\vspace{1em}
+\textbf{Kl:} \tid , \datum \\
+\textbf{Plats:} \plats 
+
+\section*{Preliminär dagordning:}
+\sect[Mötets öppnande]
+\ssect[Närvarande]
+Alla
+\sect[Informationspunkter]
+\begin{itemize}
+    \item Planera projektets ramar
+    \item Tidsplan
+\end{itemize}
+
+\sect[Resultat]
+Hållbarhetspoäng:
+Baserat på resans alternativ ges poäng på den bästa resan. Resor på landsbygd osv med begränsade alternativ måste också premieras på något sätt. \\
+Någon typ av poäng på varje resa i sig. Man samlar inte poäng, det bygger på att informera användaren. Vidare kan även användaren sortera på bättre resor i appen samt välja hur mycket appen ska prioritera resor över älven. \\
+Även visa vilka bussar som är elbussar. \\
+Information om varje linje ska också finnas på busshållplatsernas tidtabeller. \\
+Som tillägg: plantera och väx ett träd. \\
+Tydligt markera att man kan åka med båt, inte bara nummret på linjen. Ny färg på linjen i To-go appen? \\
+(Långsiktigt förslag; koppla båthållplatser till busshållplatser (framför allt på lindholmen))\\
+Information om att ta med cykeln på båten, cykelmarkör.
+\\ \ \\
+Tidsplan:
+Kod klart 18e december. Rapport i mitten av januari. 
+\sect[Status]
+Ingen har fått nåt gjort än. 
+\sect[Kommande uppgifter]
+\begin{itemize}
+    \item Skriva "några rader om projektet". 
+    \subitem Alla samlas kl 14 idag. 
+    \item Skapa tydlig plan i typ excel. 
+    \subitem Brage, Johan
+    \item Klistra ihop en layout av To-go-appen. 
+    \subitem Karl, Sebastian
+    \item Data att räkna på. Kolla på givna dataset, ställa frågor till VT hur dom räknar. 
+    \subitem Alla
+\end{itemize}
+
+\sect[Nästa möte sker]
+Torsdag 2020-11-12, kl 8 eller kl 9.
+
+\ \\ \
+\sammankallande \\
+
+\end{document}

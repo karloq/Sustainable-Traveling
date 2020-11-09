@@ -12,3 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
+#Latex
+**.aux
+**.log
+**.pdf
+**.gz
