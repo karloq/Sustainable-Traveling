@@ -1,18 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:backgroundTint="@color/colorAccent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="260dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="12dp"
+        android:backgroundTint="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textview_search_from"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/from"/>
+
+            <TextView
+                android:id="@+id/textview_search_to"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_below="@+id/textview_search_from"
+                android:text="@string/to" />
+
+            <EditText
+                android:id="@+id/edittext_search_from"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:background="@android:color/transparent"
+                android:layout_toEndOf="@+id/textview_search_from"
+                android:hint="Stop/Address/Place"/>
+
+            <EditText
+                android:id="@+id/edittext_search_to"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="26dp"
+                android:layout_below="@id/edittext_search_from"
+                android:textSize="16sp"
+                android:background="@android:color/transparent"
+                android:layout_toEndOf="@+id/textview_search_to"
+                android:hint="Stop/Address/Place"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="12dp"
+        android:backgroundTint="@color/colorPrimary"/>
+
+</RelativeLayout>
