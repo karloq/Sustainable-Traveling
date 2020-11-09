@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_wallet"
+            android:icon="@drawable/wallet"
+            android:title="Wallet balance"/>
+
+        <item android:id="@+id/nav_settings"
+            android:icon="@drawable/cog"
+            android:title="My Settings"/>
+
+        <item android:id="@+id/nav_lend"
+            android:icon="@drawable/lend"
+            android:title="Lend Ticket"/>
+
+        <item android:id="@+id/nav_redeem"
+            android:icon="@drawable/redeem"
+            android:title="Redeem voucher"/>
+
+        <item android:id="@+id/nav_bonus"
+            android:icon="@drawable/bonus"
+            android:title="Bonus"/>
+
+        <item android:id="@+id/nav_history"
+            android:icon="@drawable/history"
+            android:title="Purchase History"/>
+
+        <item android:id="@+id/nav_feedback"
+            android:icon="@drawable/feedback"
+            android:title="Leave Feedback"/>
+
+        <item android:id="@+id/nav_about"
+            android:icon="@drawable/about"
+            android:title="About ToGo"/>
+
+        <item android:id="@+id/nav_call"
+            android:icon="@drawable/call"
+            android:title="Call Customer Support"/>
+
+        <item android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Log Out"/>
+
+    </group>
+</menu>
