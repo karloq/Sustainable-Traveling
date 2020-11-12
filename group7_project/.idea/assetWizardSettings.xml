@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialiconsround/person/round_person_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/accessible_forward/baseline_accessible_forward_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffefef" />
-                            <entry key="outputName" value="user" />
-                            <entry key="sourceFile" value="C:\Users\karlo\OneDrive\Dokument\chalmers\ENM156\group7_project\group7_project" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="color" value="8a8a8a" />
+                            <entry key="outputName" value="ic_6" />
+                            <entry key="sourceFile" value="C:\Users\karlo\OneDrive\Dokument\chalmers\ENM156\group7_project\group7_project\app\src\main\res\drawable-v24\6.svg" />
                           </map>
                         </option>
                       </PersistentState>
