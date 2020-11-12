@@ -153,7 +153,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="2dp"
-                    android:text="Filters"
+                    android:text="@string/filters"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorAccent"/>
