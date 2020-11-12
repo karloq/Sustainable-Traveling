@@ -9,6 +9,7 @@ public class Travel {
     @PrimaryKey(autoGenerate = true)
 
     private int id;
+    private int line;
     private int duration;
     private int score;
     private String departure;
@@ -16,14 +17,23 @@ public class Travel {
     private String from;
     private String to;
 
-    public Travel(int id, int duration, int score, String departure, String arrival, String from, String to) {
+    public Travel(int id, int line, int duration, int score, String departure, String arrival, String from, String to) {
         this.id = id;
+        this.line = line;
         this.duration = duration;
         this.score = score;
         this.departure = departure;
         this.arrival = arrival;
         this.from = from;
         this.to = to;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
     }
 
     public int getId() {

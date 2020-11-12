@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:textSize="15sp"
+            android:textColor="@color/colorPrimaryDark"
             android:text="Korsvägen"/>
 
         <TextView
@@ -27,7 +28,7 @@
             android:layout_toEndOf="@+id/textview_travel_from"
             android:textColor="#8A8A8A"
             android:text="Platform A"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/imageview_travel_wheelchair"
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textStyle="bold"
-            android:textSize="12sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
             android:text="11:02"
             />
 
@@ -53,7 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/textview_travel_arrival"
-            android:textSize="12sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"
             android:text="10:15 -"
             />
 
@@ -63,16 +66,18 @@
             android:layout_height="wrap_content"
             android:layout_below ="@+id/textview_travel_arrival"
             android:layout_alignParentEnd="true"
-            android:textSize="12sp"
-            android:text="47 min"
+            android:textColor="#8A8A8A"
+            android:textSize="10sp"
+            android:text="Duration 47 min"
             />
 
         <ImageView
-            android:layout_width="39dp"
-            android:layout_height="48dp"
+            android:layout_width="34dp"
+            android:layout_height="41dp"
             android:layout_below="@id/textview_travel_from"
-            android:src="@drawable/ic_6"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/linje6" />
 
     </RelativeLayout>
 

@@ -50,10 +50,11 @@ public abstract class TravelDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             travelDao.insert(new Travel(1,
-                    49,
+                    6,
+                    47,
                     10,
-                    "12:49",
-                    "13:38",
+                    "10:15",
+                    "11:02",
                     "Korsvägen",
                     "Kungälv"
             ));
