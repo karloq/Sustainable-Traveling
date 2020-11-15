@@ -20,26 +20,26 @@ public class TravelRepository {
     //Executes on background thread
 
     public void insert(Travel travel){
-        new InsertProjectAsynchTask(travelDao).execute(travel);
+        new InsertTravelAsynchTask(travelDao).execute(travel);
     }
 
     public void update(Travel travel){
-        new UpdateProjectAsynchTask(travelDao).execute(travel);
+        new UpdateTravelAsynchTask(travelDao).execute(travel);
     }
 
 
     public void delete(Travel travel){
-        new DeleteProjectAsynchTask(travelDao).execute(travel);
+        new DeleteTravelAsynchTask(travelDao).execute(travel);
     }
 
     public LiveData<List<Travel>> getAllTravels() {
         return allTravels;
     }
 
-    private static class InsertProjectAsynchTask extends AsyncTask<Travel, Void, Void> {
+    private static class InsertTravelAsynchTask extends AsyncTask<Travel, Void, Void> {
         private TravelDao travelDao;
 
-        private InsertProjectAsynchTask(TravelDao travelDao) {
+        private InsertTravelAsynchTask(TravelDao travelDao) {
             this.travelDao = travelDao;
         }
 
@@ -50,10 +50,10 @@ public class TravelRepository {
         }
     }
 
-    private static class UpdateProjectAsynchTask extends AsyncTask<Travel, Void, Void> {
+    private static class UpdateTravelAsynchTask extends AsyncTask<Travel, Void, Void> {
         private TravelDao travelDao;
 
-        private UpdateProjectAsynchTask(TravelDao travelDao) {
+        private UpdateTravelAsynchTask(TravelDao travelDao) {
             this.travelDao = travelDao;
         }
 
@@ -64,10 +64,10 @@ public class TravelRepository {
         }
     }
 
-    private static class DeleteProjectAsynchTask extends AsyncTask<Travel, Void, Void> {
+    private static class DeleteTravelAsynchTask extends AsyncTask<Travel, Void, Void> {
         private TravelDao travelDao;
 
-        private DeleteProjectAsynchTask(TravelDao travelDao) {
+        private DeleteTravelAsynchTask(TravelDao travelDao) {
             this.travelDao = travelDao;
         }
 

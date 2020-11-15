@@ -22,6 +22,6 @@ public interface TravelDao {
     @Delete
     void delete(Travel travel);
 
-    @Query("SELECT * FROM travel_table ORDER BY score DESC")
+    @Query("SELECT * FROM travel_table ORDER BY id DESC")
     LiveData<List<Travel>> getAllTravels();
 }
