@@ -1,7 +1,6 @@
 package com.example.group7_project;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -14,8 +13,8 @@ public class TravelViewModel extends AndroidViewModel {
 
     public TravelViewModel(@NonNull Application application) {
         super(application);
-        this.repository = new TravelRepository(application);
-        allTravels = repository.getAllProjects();
+        repository = new TravelRepository(application);
+        allTravels = repository.getAllTravels();
     }
 
     public void insert(Travel travel){

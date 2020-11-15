@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         drawer = findViewById(R.id.drawer_layout);
 
-
         ImageButton open_drawer = findViewById(R.id.button_search_menu);
         open_drawer.setOnClickListener(new View.OnClickListener() {
             @Override

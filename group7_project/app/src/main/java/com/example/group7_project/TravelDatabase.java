@@ -53,8 +53,17 @@ public abstract class TravelDatabase extends RoomDatabase {
                     6,
                     47,
                     10,
-                    "10:15",
+                    "10:15 - ",
                     "11:02",
+                    "Korsvägen",
+                    "Kungälv"
+            ));
+            travelDao.insert(new Travel(2,
+                    6,
+                    47,
+                    10,
+                    "11:15 - ",
+                    "12:02",
                     "Korsvägen",
                     "Kungälv"
             ));

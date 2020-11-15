@@ -14,7 +14,7 @@ public class TravelRepository {
     public TravelRepository(Application application) {
         TravelDatabase database = TravelDatabase.getInstance(application);
         travelDao = database.travelDao();
-        allTravels = travelDao.getAllProjects();
+        allTravels = travelDao.getAllTravels();
     }
 
     //Executes on background thread
@@ -32,7 +32,7 @@ public class TravelRepository {
         new DeleteProjectAsynchTask(travelDao).execute(travel);
     }
 
-    public LiveData<List<Travel>> getAllProjects() {
+    public LiveData<List<Travel>> getAllTravels() {
         return allTravels;
     }
 
@@ -67,7 +67,7 @@ public class TravelRepository {
     private static class DeleteProjectAsynchTask extends AsyncTask<Travel, Void, Void> {
         private TravelDao travelDao;
 
-        private DeleteProjectAsynchTask(TravelDao projectDao) {
+        private DeleteProjectAsynchTask(TravelDao travelDao) {
             this.travelDao = travelDao;
         }
 
