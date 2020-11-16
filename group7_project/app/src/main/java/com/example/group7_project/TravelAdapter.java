@@ -3,8 +3,11 @@ package com.example.group7_project;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -33,6 +36,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewFrom;
         private TextView textViewDeparture;
         private TextView textViewArrival;
+        private ImageView imageViewLine;
         //private TextView textViewDuration;
         //Tracking button
 
@@ -41,6 +45,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             textViewFrom = itemView.findViewById(R.id.textview_travel_from);
             textViewDeparture = itemView.findViewById(R.id.textview_travel_departure);
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
+            imageViewLine = itemView.findViewById(R.id.imageview_travel_line);
             //textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +93,12 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         holder.textViewFrom.setText(currentTravel.getFrom());
         holder.textViewDeparture.setText(currentTravel.getDeparture());
         holder.textViewArrival.setText(currentTravel.getArrival());
+        if (currentTravel.getLine() == 7) {
+            holder.imageViewLine.setImageResource(R.drawable.linje7);
+        }else {
+            holder.imageViewLine.setImageResource(R.drawable.linje6);
+        }
+
         //holder.textViewDuration.setText(currentTravel.getDuration());
     }
 
