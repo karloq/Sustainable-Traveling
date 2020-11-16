@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/colorPrimary"
     android:id="@+id/drawer_layout"
     tools:context=".MainActivity"
     android:fitsSystemWindows="true"
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/travel_planning"
                 android:textSize="24sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="40dp"
                 />
@@ -69,7 +70,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginStart="20dp"
             app:cardCornerRadius="12dp"
-            android:backgroundTint="@color/colorPrimary">
+            android:backgroundTint="@color/white">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -136,7 +137,7 @@
             android:layout_width="112dp"
             android:layout_height="100dp"
             app:cardCornerRadius="12dp"
-            android:backgroundTint="@color/colorPrimary">
+            android:backgroundTint="@color/white">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -171,6 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="250dp"
+            android:backgroundTint="@color/colorPrimary"
             tools:listitem="@layout/travel_card_item"/>
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
