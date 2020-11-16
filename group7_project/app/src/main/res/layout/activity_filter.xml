@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilterActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_filter_1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="@color/colorPrimary">
+
+        <ImageButton
+            android:id="@+id/button_filter_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/textview_filter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="25dp"
+            android:text="Filters"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Reset filters"
+            android:layout_marginTop="27dp"
+            android:layout_marginStart="280dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When are you traveling?"
+        android:layout_below="@+id/cardview_filter_1"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_filter_2"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop = "170dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="340dp"
+            android:layout_height="70dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorPrimary">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                app:cardCornerRadius="8dp"
+                android:backgroundTint="@color/colorAccent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Now"
+                    android:textSize="18sp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="140dp"
+                android:layout_marginTop="20dp"
+                android:text="Departure"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="260dp"
+                android:layout_marginTop="20dp"
+                android:text="Arrival"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textview_filter_planning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardview_filter_2"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        android:text="Travel Planning"/>
+    <View
+        android:id="@+id/horizontaldivider_1"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_planning"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/textview_filter_transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_1"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Transfer time"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_1"
+        android:layout_toRightOf="@+id/textview_filter_transfer"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="110dp"
+        android:textColor="#BF676767"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Normal (usually 5 min)"/>
+
+    <View
+        android:id="@+id/horizontaldivider_2"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_transfer"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/textview_filter_nearby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_2"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:text="Nearby stops"/>
+
+    <View
+        android:id="@+id/horizontaldivider_3"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_nearby"
+        android:layout_marginTop="20dp"
+        />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_3"
+        android:layout_toRightOf="@+id/textview_filter_nearby"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="170dp" />
+
+    <TextView
+        android:id="@+id/textview_filter_nearbywalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_3"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="I can walk to the nearest stop"/>
+
+    <View
+        android:id="@+id/horizontaldivider_4"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_nearbywalk"
+        android:layout_marginTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/textview_filter_alternatives"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_4"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"
+        android:text="Nearby stops"/>
+
+    <View
+        android:id="@+id/horizontaldivider_5"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_alternatives"
+        android:layout_marginTop="20dp"
+        />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_5"
+        android:layout_toRightOf="@+id/textview_filter_nearby"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="170dp" />
+
+    <TextView
+        android:id="@+id/textview_filter_showwalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_5"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:text="Show walking for shorter trips"/>
+
+    <View
+        android:id="@+id/horizontaldivider_6"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#BF676767"
+        android:layout_below="@+id/textview_filter_showwalk"
+        android:layout_marginTop="20dp"
+        />
+
+</RelativeLayout>

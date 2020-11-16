@@ -1,6 +1,7 @@
 package com.example.group7_project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -25,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int ADD_FILTER_REQUEST = 1;
+
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
 
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AutoCompleteTextView edittext_from;
     private AutoCompleteTextView edittext_to;
+
+    private ImageButton button_filter;
 
     private static final String[] STOPS = new String[]{
             "Chalmers", "Beväringsgatan"
@@ -82,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
 
         createTravelList();
         buildRecyclerView();
+
+        button_filter = findViewById(R.id.button_search_filter);
+        button_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                startActivityForResult(intent, ADD_FILTER_REQUEST);
+            }
+        });
     }
 
     private void createTravelList() {
@@ -93,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
         mTravelList_full.add(new Travel(1,7, 20, 10,
                 "10:13 -", "10:33",
                 "Chalmers", "Beväringsgatan"));
-
-
     }
 
     private void buildRecyclerView() {
@@ -147,6 +161,17 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         }else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK){
+            assert data != null;
+            Toast.makeText(this, "Filter added", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(this, "Filter not added", Toast.LENGTH_SHORT).show();
         }
     }
 }
