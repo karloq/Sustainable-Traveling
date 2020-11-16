@@ -99,8 +99,9 @@
                     android:layout_below="@+id/textview_search_from"
                     android:text="@string/to" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/edittext_search_from"
+                    android:completionThreshold="0"
                     android:inputType="text"
                     android:maxLines="1"
                     android:layout_width="200dp"
@@ -112,8 +113,9 @@
                     android:layout_toEndOf="@+id/textview_search_from"
                     android:hint="@string/stop_address_place"/>
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/edittext_search_to"
+                    android:completionThreshold="0"
                     android:inputType="text"
                     android:maxLines="1"
                     android:layout_width="200dp"

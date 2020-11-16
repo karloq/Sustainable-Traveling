@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,8 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private TravelAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private EditText edittext_from;
-    private EditText edittext_to;
+    private AutoCompleteTextView edittext_from;
+    private AutoCompleteTextView edittext_to;
+
+    private static final String[] STOPS = new String[]{
+            "Chalmers", "Beväringsgatan"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         edittext_from = findViewById(R.id.edittext_search_from);
         edittext_to = findViewById(R.id.edittext_search_to);
 
+        String[] stops = STOPS;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, STOPS);
+        edittext_to.setAdapter(adapter);
+        edittext_from.setAdapter(adapter);
+
         edittext_to.setOnKeyListener(new View.OnKeyListener(){
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -52,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
                     updateFilter();
-                    Toast.makeText(getApplicationContext(), edittext_to.getText(), Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
@@ -76,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createTravelList() {
         mTravelList_full = new ArrayList<>();
+        mTravelList_filtered = new ArrayList<>();
         mTravelList_full.add(new Travel(1,6, 22, 0,
                 "10:11 -", "10:33",
                 "Chalmers", "Beväringsgatan"));
@@ -83,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 "10:13 -", "10:33",
                 "Chalmers", "Beväringsgatan"));
 
-        mTravelList_filtered = new ArrayList<>(mTravelList_full);
+
     }
 
     private void buildRecyclerView() {
