@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -24,16 +26,38 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
 
-    private ArrayList<Travel> mTravelList;
+    private ArrayList<Travel> mTravelList_filtered;
+    private ArrayList<Travel> mTravelList_full;
 
     private RecyclerView mRecyclerView;
     private TravelAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private EditText edittext_from;
+    private EditText edittext_to;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        edittext_from = findViewById(R.id.edittext_search_from);
+        edittext_to = findViewById(R.id.edittext_search_to);
+
+        edittext_to.setOnKeyListener(new View.OnKeyListener(){
+
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    updateFilter();
+                    Toast.makeText(getApplicationContext(), edittext_to.getText(), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -51,20 +75,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTravelList() {
-        mTravelList = new ArrayList<>();
-        mTravelList.add(new Travel(1,6, 22, 0,
+        mTravelList_full = new ArrayList<>();
+        mTravelList_full.add(new Travel(1,6, 22, 0,
                 "10:11 -", "10:33",
                 "Chalmers", "Beväringsgatan"));
-        mTravelList.add(new Travel(1,7, 20, 10,
+        mTravelList_full.add(new Travel(1,7, 20, 10,
                 "10:13 -", "10:33",
                 "Chalmers", "Beväringsgatan"));
+
+        mTravelList_filtered = new ArrayList<>(mTravelList_full);
     }
 
     private void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.RecyclerView_main);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new TravelAdapter(mTravelList);
+        mAdapter = new TravelAdapter(mTravelList_filtered);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -86,6 +112,22 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+    }
+
+    public void updateFilter(){
+        mTravelList_filtered.clear();
+
+        String to = edittext_to.getText().toString().toLowerCase();
+        String from = edittext_from.getText().toString().toLowerCase();
+
+        for (Travel travel : mTravelList_full){
+            String travelFrom = travel.getFrom().toLowerCase();
+            String travelTo = travel.getTo().toLowerCase();
+            if(travelFrom.contains(from) && travelTo.contains(to)){
+                mTravelList_filtered.add(travel);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

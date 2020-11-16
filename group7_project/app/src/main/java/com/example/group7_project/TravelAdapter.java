@@ -3,6 +3,8 @@ package com.example.group7_project;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,10 @@ import java.util.List;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelViewHolder> {
     private ArrayList<Travel> mtravelList;
+    private ArrayList<Travel> mtravelListFull;
     private OnItemClickListener mlistener;
+
+
 
     public  interface OnItemClickListener {
         void onItemClick(int position);
@@ -75,7 +80,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
     }
 
     public TravelAdapter(ArrayList<Travel> travelList) {
-        mtravelList = travelList;
+        this.mtravelList = travelList;
+        mtravelListFull = new ArrayList<>(travelList);
         }
 
     @Override
@@ -106,4 +112,5 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
     public int getItemCount() {
         return mtravelList.size();
     }
+
 }
