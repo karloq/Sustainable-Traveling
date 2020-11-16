@@ -17,13 +17,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
 
-    private TravelViewModel travelViewModel;
+    private ArrayList<Travel> mTravelList;
+
+    private RecyclerView mRecyclerView;
+    private TravelAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,35 +46,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.RecyclerView_main);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
+        createTravelList();
+        buildRecyclerView();
+    }
 
-        final TravelAdapter adapter = new TravelAdapter();
-        recyclerView.setAdapter(adapter);
+    private void createTravelList() {
+        mTravelList = new ArrayList<>();
+        mTravelList.add(new Travel(1,6, 22, 0,
+                "10:11 -", "10:33",
+                "Chalmers", "Beväringsgatan"));
+        mTravelList.add(new Travel(1,7, 20, 10,
+                "10:13 -", "10:33",
+                "Chalmers", "Beväringsgatan"));
+    }
 
-        travelViewModel  = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(TravelViewModel.class);
-        travelViewModel.getAllTravels().observe(this, new Observer<List<Travel>>() {
+    private void buildRecyclerView() {
+        mRecyclerView = findViewById(R.id.RecyclerView_main);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new TravelAdapter(mTravelList);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
             @Override
-            public void onChanged(List<Travel> travels) {
-                adapter.submitList(travels);
-                //Update RecyclerView
+            public void onItemClick(int position) {
+                Toast toast = Toast. makeText(getApplicationContext(),
+                        "You have clicked, but it's not implemented. Yet...",
+                        Toast. LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onTrackClick(int position) {
+                Toast toast = Toast. makeText(getApplicationContext(),
+                        "You're trying to track, but it's not implemented. Yet...",
+                        Toast. LENGTH_SHORT);
+                toast.show();
             }
         });
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                Toast.makeText(MainActivity.this, "Not implemented", Toast.LENGTH_SHORT).show();
-            }
-        }).attachToRecyclerView(recyclerView);
-
     }
 
     @Override
