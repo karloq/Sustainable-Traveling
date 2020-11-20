@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_FILTER_REQUEST = 1;
@@ -130,9 +129,6 @@ public class MainActivity extends AppCompatActivity {
     public void updateFilter(){
         mTravelList_filtered.clear();
 
-        int maxscore = 0;
-        Stack sus = new Stack();
-
         String to = edittext_to.getText().toString().toLowerCase();
         String from = edittext_from.getText().toString().toLowerCase();
 
@@ -141,14 +137,8 @@ public class MainActivity extends AppCompatActivity {
             String travelTo = travel.getTo().toLowerCase();
             if(travelFrom.contains(from) && travelTo.contains(to)){
                 mTravelList_filtered.add(travel);
-                if (travel.getScore() > maxscore){
-                    maxscore = travel.getScore();
-                    sus.push(travel);
-                }
             }
         }
-        Travel susTravel = (Travel) sus.pop();
-        susTravel.setBest(true);
         mAdapter.notifyDataSetChanged();
     }
 

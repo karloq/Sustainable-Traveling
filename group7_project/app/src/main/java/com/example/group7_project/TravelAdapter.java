@@ -1,13 +1,11 @@
 package com.example.group7_project;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
@@ -44,7 +42,6 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewDeparture;
         private TextView textViewArrival;
         private ImageView imageViewLine;
-        private RelativeLayout relativeLayoutView;
         //private TextView textViewDuration;
         //Tracking button
 
@@ -54,7 +51,6 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             textViewDeparture = itemView.findViewById(R.id.textview_travel_departure);
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
             imageViewLine = itemView.findViewById(R.id.imageview_travel_line);
-            relativeLayoutView = itemView.findViewById(R.id.relativelayout_main);
             //textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +104,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         }else {
             holder.imageViewLine.setImageResource(R.drawable.linje6);
         }
-        if(currentTravel.getBest()) {
-            holder.relativeLayoutView.setBackgroundColor(Color.parseColor("#70f030"));
-        }
+
         //holder.textViewDuration.setText(currentTravel.getDuration());
     }
 

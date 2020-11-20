@@ -7,11 +7,9 @@
     >
 
     <RelativeLayout
-        android:id="@+id/relativelayout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        android:background="@color/white">
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/textview_travel_from"
