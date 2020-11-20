@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mTravelList_filtered = new ArrayList<>();
         mTravelList_full.add(new Travel(1,false,60, 0, 9, 0,0,1,
                 600, 609,
-                "Järntorget", "Centralstation"));
+                "Järntorget", "Centralstationen"));
         mTravelList_full.add(new Travel(2,false, 3, 0, 14, 0,0,0,
                 602, 616,
                 "Järntorget", "Centralstationen"));
