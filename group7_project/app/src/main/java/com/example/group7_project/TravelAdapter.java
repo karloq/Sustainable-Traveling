@@ -3,22 +3,14 @@ package com.example.group7_project;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelViewHolder> {
     private ArrayList<Travel> mtravelList;
@@ -42,6 +34,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewDeparture;
         private TextView textViewArrival;
         private ImageView imageViewLine;
+        private CardView cardView;
         //private TextView textViewDuration;
         //Tracking button
 
@@ -52,6 +45,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
             imageViewLine = itemView.findViewById(R.id.imageview_travel_line);
             //textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
+            cardView = itemView.findViewById(R.id.cardview_travel);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,6 +97,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             holder.imageViewLine.setImageResource(R.drawable.linje7);
         }else {
             holder.imageViewLine.setImageResource(R.drawable.linje6);
+        }
+        if(currentTravel.getBest()){
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(MainActivity.getAppContext(), R.color.sus_green));
         }
 
         //holder.textViewDuration.setText(currentTravel.getDuration());

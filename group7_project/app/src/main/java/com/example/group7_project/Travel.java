@@ -16,6 +16,7 @@ public class Travel {
     private String arrival;
     private String from;
     private String to;
+    private boolean best;
 
     public Travel(int id, int line, int duration, int score, String departure, String arrival, String from, String to) {
         this.id = id;
@@ -26,6 +27,7 @@ public class Travel {
         this.arrival = arrival;
         this.from = from;
         this.to = to;
+        this.best = false;
     }
 
     public int getLine() {
@@ -90,6 +92,14 @@ public class Travel {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public boolean getBest() {
+        return best;
+    }
+
+    public void setBest(boolean best) {
+        this.best = best;
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.group7_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -17,8 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+    private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
 
     private DrawerLayout drawer;
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MainActivity.context = getApplicationContext();
+
+
 
         edittext_from = findViewById(R.id.edittext_search_from);
         edittext_to = findViewById(R.id.edittext_search_to);
@@ -129,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
     public void updateFilter(){
         mTravelList_filtered.clear();
 
+        int maxscore = 0;
+        Stack sus = new Stack();
+
         String to = edittext_to.getText().toString().toLowerCase();
         String from = edittext_from.getText().toString().toLowerCase();
 
@@ -137,8 +147,14 @@ public class MainActivity extends AppCompatActivity {
             String travelTo = travel.getTo().toLowerCase();
             if(travelFrom.contains(from) && travelTo.contains(to)){
                 mTravelList_filtered.add(travel);
+                if(travel.getScore() > maxscore){
+                    maxscore = travel.getScore();
+                    sus.push(travel);
+                }
             }
         }
+        Travel susTravel = (Travel) sus.pop();
+        susTravel.setBest(true);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -160,5 +176,9 @@ public class MainActivity extends AppCompatActivity {
         } else{
             Toast.makeText(this, "Filter not added", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static Context getAppContext() {
+        return MainActivity.context;
     }
 }
