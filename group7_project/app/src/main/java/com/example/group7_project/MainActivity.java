@@ -10,7 +10,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -62,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         edittext_to.setAdapter(adapter);
         edittext_from.setAdapter(adapter);
 
+        createTravelList();
+        buildRecyclerView();
+
         edittext_to.setOnKeyListener(new View.OnKeyListener(){
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -83,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        createTravelList();
-        buildRecyclerView();
-
         button_filter = findViewById(R.id.button_search_filter);
         button_filter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mTravelList_filtered = new ArrayList<>();
         mTravelList_full.add(new Travel(1,false,60, 0, 9, 0,0,1,
                 600, 609,
-                "Järntorget", "Centralstationen"));
+                "Järntorget", "Centralstation"));
         mTravelList_full.add(new Travel(2,false, 3, 0, 14, 0,0,0,
                 602, 616,
                 "Järntorget", "Centralstationen"));
@@ -161,11 +160,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        try {
+        try{
             Travel susTravel = (Travel) sus.pop();
-            susTravel.setBest(true);
-        } catch(EmptyStackException e){
-        }
+             susTravel.setBest(true);}
+        catch (EmptyStackException e){}
         mAdapter.notifyDataSetChanged();
     }
 
@@ -179,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK){
             assert data != null;
