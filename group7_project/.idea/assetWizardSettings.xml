@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="43ff78" />
-                            <entry key="outputName" value="eco" />
-                            <entry key="sourceFile" value="C:\Users\karlo\OneDrive\Dokument\chalmers\ENM156\group7_project\group7_project\app\src\main\res\drawable-v24\7.svg" />
+                            <entry key="outputName" value="linje241" />
+                            <entry key="sourceFile" value="C:\Users\karlo\OneDrive\Dokument\chalmers\ENM156\group7_project\design\linje241.svg" />
                           </map>
                         </option>
                       </PersistentState>
