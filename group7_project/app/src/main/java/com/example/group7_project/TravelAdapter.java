@@ -35,6 +35,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewArrival;
         private ImageView imageViewLine;
         private CardView cardView;
+        private TextView textViewDuration;
         //private TextView textViewDuration;
         //Tracking button
 
@@ -44,6 +45,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             textViewDeparture = itemView.findViewById(R.id.textview_travel_departure);
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
             imageViewLine = itemView.findViewById(R.id.imageview_travel_line);
+            textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
             //textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
             cardView = itemView.findViewById(R.id.cardview_travel);
 
@@ -91,9 +93,10 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         Travel currentTravel = mtravelList.get(position);
 
         holder.textViewFrom.setText(currentTravel.getFrom());
-        holder.textViewDeparture.setText(currentTravel.getDeparture());
-        holder.textViewArrival.setText(currentTravel.getArrival());
-        if (currentTravel.getLine() == 7) {
+        holder.textViewDeparture.setText(fromtimetostring(currentTravel.getDeparture(),false));
+        holder.textViewArrival.setText(fromtimetostring(currentTravel.getArrival(),true));
+        holder.textViewDuration.setText("Duration "+(currentTravel.getArrival()-currentTravel.getDeparture()) + " min");
+        if (currentTravel.getLine_1() == 7) {
             holder.imageViewLine.setImageResource(R.drawable.linje7);
         }else {
             holder.imageViewLine.setImageResource(R.drawable.linje6);
@@ -105,6 +108,26 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         //holder.textViewDuration.setText(currentTravel.getDuration());
     }
 
+    private String fromtimetostring(int time, boolean arrival) {
+        StringBuilder string = new StringBuilder();
+        int minutes = time % 60;
+        int hours = (time - minutes) / 60;
+        if (arrival) {
+            if (minutes < 10) {
+                string.append(" - " + hours + ":0" + minutes);
+            } else {
+                string.append(" - " + hours + ":" + minutes);
+            }
+        } else {
+            if (minutes < 10) {
+                string.append(hours + ":0" + minutes);
+            } else {
+                string.append(hours + ":" + minutes);
+            }
+        }
+
+        return string.toString();
+    }
     @Override
     public int getItemCount() {
         return mtravelList.size();

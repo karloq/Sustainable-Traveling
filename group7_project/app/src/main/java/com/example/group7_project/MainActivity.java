@@ -40,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton button_filter;
 
     private static final String[] STOPS = new String[]{
-            "Chalmers", "Beväringsgatan"
+            "Chalmers", "Brunnsparken",
+            "Lindholmspiren", "Lindholmsallén",
+            "Järntorget","Eriksbergstorget",
+            "Centralstationen"
     };
 
     @Override
@@ -49,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MainActivity.context = getApplicationContext();
-
-
 
         edittext_from = findViewById(R.id.edittext_search_from);
         edittext_to = findViewById(R.id.edittext_search_to);
@@ -97,12 +98,18 @@ public class MainActivity extends AppCompatActivity {
     private void createTravelList() {
         mTravelList_full = new ArrayList<>();
         mTravelList_filtered = new ArrayList<>();
-        mTravelList_full.add(new Travel(1,6, 22, 0,
-                "10:11 -", "10:33",
-                "Chalmers", "Beväringsgatan"));
-        mTravelList_full.add(new Travel(1,7, 20, 10,
-                "10:13 -", "10:33",
-                "Chalmers", "Beväringsgatan"));
+        mTravelList_filtered.add(new Travel(1,false,60, 0, 9, 0,0,1,
+                600, 609,
+                "Järntorget", "Centralstation"));
+        mTravelList_filtered.add(new Travel(2,false, 3, 0, 14, 0,0,0,
+                602, 616,
+                "Järntorget", "Centralstationen"));
+        mTravelList_filtered.add(new Travel(3,true, 241, 1337, 7, 5,0,0,
+                605, 617,
+                "Järntorget", "Centralstationen"));
+        mTravelList_filtered.add(new Travel(4,true, 50, 1337, 7, 7,0,0,
+                610, 624,
+                "Järntorget", "Centralstationen"));
     }
 
     private void buildRecyclerView() {
