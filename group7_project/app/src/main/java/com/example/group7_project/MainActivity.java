@@ -4,23 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
 
@@ -76,12 +80,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         drawer = findViewById(R.id.drawer_layout);
+
         ImageButton open_drawer = findViewById(R.id.button_search_menu);
         open_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawer.openDrawer(GravityCompat.START);
                 isDrawerOpen = true;
+            }
+        });
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_sus:
+                        Intent intent = new Intent(MainActivity.this, SustainabilityPageActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        Toast toast = Toast. makeText(getApplicationContext(),
+                                "You have clicked, but it's not implemented. Yet...",
+                                Toast. LENGTH_SHORT);
+                        toast.show();
+                }
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
 
