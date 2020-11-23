@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             "Centralstationen"
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
