@@ -2,6 +2,7 @@ package com.example.group7_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -127,20 +130,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createTravelList() {
+        final LocalTime now = LocalTime.now();
+        int time = (now.getHour()*60) + now.getMinute();
         mTravelList_full = new ArrayList<>();
         mTravelList_filtered = new ArrayList<>();
         mTravelList_full.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
-                600, 609,
+                time+3, time+12,
                 "Järntorget", "Centralstationen"));
         mTravelList_full.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
-                602, 616,
+                time+2, time+16,
                 "Järntorget", "Centralstationen"));
         mTravelList_full.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
-                605, 617,
+                time+5, time+17,
                 "Järntorget", "Centralstationen"));
         mTravelList_full.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
-                610, 624,
+                time+10, time+24,
                 "Järntorget", "Centralstationen"));
     }
 
