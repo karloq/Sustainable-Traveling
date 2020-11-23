@@ -24,9 +24,14 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
+
+    public static final String EXTRA_MAIN_SUSFILTER =
+            "com.example.group7_project.EXTRA_SUSFILTER";
+
+    private boolean susFilter;
 
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity{
     private static final String[] STOPS = new String[]{
             "Chalmers", "Brunnsparken",
             "Lindholmspiren", "Lindholmsallén",
-            "Järntorget","Eriksbergstorget",
+            "Järntorget", "Eriksbergstorget",
             "Centralstationen"
     };
 
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
         createTravelList();
         buildRecyclerView();
 
-        edittext_to.setOnKeyListener(new View.OnKeyListener(){
+        edittext_to.setOnKeyListener(new View.OnKeyListener() {
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -94,15 +99,16 @@ public class MainActivity extends AppCompatActivity{
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+
+                switch (item.getItemId()) {
                     case R.id.nav_sus:
                         Intent intent = new Intent(MainActivity.this, SustainabilityPageActivity.class);
                         startActivity(intent);
                         break;
                     default:
-                        Toast toast = Toast. makeText(getApplicationContext(),
+                        Toast toast = Toast.makeText(getApplicationContext(),
                                 "You have clicked, but it's not implemented. Yet...",
-                                Toast. LENGTH_SHORT);
+                                Toast.LENGTH_SHORT);
                         toast.show();
                 }
                 drawer.closeDrawer(GravityCompat.START);
@@ -115,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                intent.putExtra(EXTRA_MAIN_SUSFILTER, susFilter);
                 startActivityForResult(intent, ADD_FILTER_REQUEST);
             }
         });
@@ -123,16 +130,16 @@ public class MainActivity extends AppCompatActivity{
     private void createTravelList() {
         mTravelList_full = new ArrayList<>();
         mTravelList_filtered = new ArrayList<>();
-        mTravelList_full.add(new Travel(1,false,60, 0, 9, 0,0,1,
+        mTravelList_full.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
                 600, 609,
                 "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(2,false, 3, 0, 14, 0,0,0,
+        mTravelList_full.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
                 602, 616,
                 "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(3,true, 241, 1337, 7, 5,0,0,
+        mTravelList_full.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
                 605, 617,
                 "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(4,true, 50, 1337, 7, 7,0,0,
+        mTravelList_full.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
                 610, 624,
                 "Järntorget", "Centralstationen"));
     }
@@ -149,23 +156,23 @@ public class MainActivity extends AppCompatActivity{
         mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast toast = Toast. makeText(getApplicationContext(),
+                Toast toast = Toast.makeText(getApplicationContext(),
                         "You have clicked, but it's not implemented. Yet...",
-                        Toast. LENGTH_SHORT);
+                        Toast.LENGTH_SHORT);
                 toast.show();
             }
 
             @Override
             public void onTrackClick(int position) {
-                Toast toast = Toast. makeText(getApplicationContext(),
+                Toast toast = Toast.makeText(getApplicationContext(),
                         "You're trying to track, but it's not implemented. Yet...",
-                        Toast. LENGTH_SHORT);
+                        Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
     }
 
-    public void updateFilter(){
+    public void updateFilter() {
         mTravelList_filtered.clear();
 
         int maxscore = 0;
@@ -174,29 +181,35 @@ public class MainActivity extends AppCompatActivity{
         String to = edittext_to.getText().toString().toLowerCase();
         String from = edittext_from.getText().toString().toLowerCase();
 
-        for (Travel travel : mTravelList_full){
+        for (Travel travel : mTravelList_full) {
             String travelFrom = travel.getFrom().toLowerCase();
             String travelTo = travel.getTo().toLowerCase();
-            if(travelFrom.contains(from) && travelTo.contains(to)){
-                mTravelList_filtered.add(travel);
-                if(travel.getScore() > maxscore){
+            if (travelFrom.contains(from) && travelTo.contains(to)) {
+                if (susFilter && travel.getScore() > 0) {
+                    mTravelList_filtered.add(travel);
+                }
+                if (!susFilter) {
+                    mTravelList_filtered.add(travel);
+                }
+                if (travel.getScore() > maxscore) {
                     maxscore = travel.getScore();
                     sus.push(travel);
                 }
             }
         }
-        try{
+        try {
             Travel susTravel = (Travel) sus.pop();
-             susTravel.setBest(true);}
-        catch (EmptyStackException e){}
+            susTravel.setBest(true);
+        } catch (EmptyStackException e) {
+        }
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onBackPressed() {
-        if(isDrawerOpen) {
+        if (isDrawerOpen) {
             drawer.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -204,10 +217,11 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK){
+        if (requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
+            susFilter = data.getBooleanExtra(FilterActivity.EXTRA_SUSFILTER, false);
             Toast.makeText(this, "Filter added", Toast.LENGTH_SHORT).show();
-        } else{
+        } else {
             Toast.makeText(this, "Filter not added", Toast.LENGTH_SHORT).show();
         }
     }

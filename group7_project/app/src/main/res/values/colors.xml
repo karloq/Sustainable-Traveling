@@ -5,5 +5,7 @@
     <color name="colorAccent">#00C4FF</color>
     <color name="transparent">#0000C4FF</color>
     <color name="white">#FFFFFF</color>
-    <color name="sus_green">#D5F3D6</color>
+    <color name="sus_green">#C1F1C3</color>
+    <color name="sus_green_dark">#004702</color>
+    <color name="sus_green_medium">#0B9E0F</color>
 </resources>

@@ -7,4 +7,12 @@
         <item name="colorAccent">#C7D3D2</item>
     </style>
 
+    <style name="CustomSwitchTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/sus_green_medium</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/sus_green</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">#757575</item>
+    </style>
 </resources>
