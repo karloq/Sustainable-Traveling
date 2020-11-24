@@ -50,7 +50,7 @@
         android:layout_below="@+id/cardview_filter_1"
         android:textSize="18sp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:textColor="@color/colorPrimaryDark"/>
 
     <androidx.cardview.widget.CardView
@@ -59,7 +59,7 @@
         android:layout_height="70dp"
         app:cardCornerRadius="12dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop = "140dp">
+        android:layout_marginTop = "110dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="340dp"
@@ -109,15 +109,64 @@
                 android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
-
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textview_filter_sus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardview_filter_2"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/sus_green_dark"
+        android:textSize="16dp"
+        android:text="Sustainability"/>
+
+    <View
+        android:id="@+id/horizontaldivider_00"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/sus_green_dark"
+        android:layout_below="@+id/textview_filter_sus"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:id="@+id/textview_filter_suschoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontaldivider_00"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/sus_green_medium"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="I only want to see the most sustainable trips"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/toggle_filter_sus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/CustomSwitchTheme"
+        android:layout_below="@id/horizontaldivider_00"
+        android:layout_toRightOf="@+id/textview_filter_suschoose"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="20dp" />
+
+    <View
+        android:id="@+id/horizontaldivider_0"
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/sus_green_dark"
+        android:layout_below="@+id/textview_filter_suschoose"
+        android:layout_marginTop="10dp"
+        />
 
     <TextView
         android:id="@+id/textview_filter_planning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cardview_filter_2"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textview_filter_suschoose"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
@@ -169,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizontaldivider_2"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
@@ -190,7 +239,7 @@
         android:layout_below="@id/horizontaldivider_3"
         android:layout_toRightOf="@+id/textview_filter_nearby"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="230dp" />
+        android:layout_marginStart="240dp" />
 
     <TextView
         android:id="@+id/textview_filter_nearbywalk"
@@ -218,11 +267,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizontaldivider_4"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
-        android:text="Nearby stops"/>
+        android:text="Travel alternatives"/>
 
     <View
         android:id="@+id/horizontaldivider_5"
@@ -239,7 +288,7 @@
         android:layout_below="@id/horizontaldivider_5"
         android:layout_toRightOf="@+id/textview_filter_nearby"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="230dp" />
+        android:layout_marginStart="240dp" />
 
     <TextView
         android:id="@+id/textview_filter_showwalk"
