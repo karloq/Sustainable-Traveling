@@ -14,8 +14,8 @@
 **/.signing/
 
 # User-specific configurations
-group7_project/.idea/*
-group7_project/.idea/libraries/*
+group7_project/.idea/
+group7_project/.idea/libraries/
 group7_project/.idea/workspace.xml
 group7_project/.idea/tasks.xml
 group7_project/.idea/.name
