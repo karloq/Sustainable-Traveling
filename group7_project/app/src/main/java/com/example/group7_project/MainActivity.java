@@ -164,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        //TODO: Shortcuts for searching travels when opening app
+
         //TODO: Swipe to track travel
         //TODO: Pop up animation when growing tree
         mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
@@ -187,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateFilter() {
         //TODO: Order according to time and sustainability
+        //TODO: Add standard card when no trips were found
         mTravelList_filtered.clear();
 
         int maxscore = 0;
