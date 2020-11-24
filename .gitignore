@@ -14,6 +14,8 @@
 **/.signing/
 
 # User-specific configurations
+group7_project/gradle/wrapper/gradle-wrapper.properties
+group7_project/build.gradle
 group7_project/.idea/
 group7_project/.idea/libraries/
 group7_project/.idea/workspace.xml
