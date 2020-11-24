@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //TODO: Make splashscreen
+        //TODO:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
