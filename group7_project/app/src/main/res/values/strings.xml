@@ -3,8 +3,14 @@
     <string name="from">From:</string>
     <string name="to">To:</string>
     <string name="travel_planning">Travel Planning</string>
+    <string name="go_back">Go back</string>
     <string name="stop_address_place">Stop/Address/Place</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="filters">Filters</string>
+    <string name="travel_time">Restid 10 år</string>
+    <string name="sustainability_year_start">2020</string>
+    <string name="sustainability_year_end"> - 2030</string>
+    <string name="sustainability_text">Ditt bidrag till klimatet</string>
+
 </resources>
