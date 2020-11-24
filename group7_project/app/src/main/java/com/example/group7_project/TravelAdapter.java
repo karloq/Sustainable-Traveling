@@ -96,6 +96,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         holder.textViewDeparture.setText(fromtimetostring(currentTravel.getDeparture(),false));
         holder.textViewArrival.setText(fromtimetostring(currentTravel.getArrival(),true));
         holder.textViewDuration.setText("Duration "+(currentTravel.getArrival()-currentTravel.getDeparture()) + " min");
+
+        //TODO: Add all other tram/bus/boat line graphics
+        //TODO: Add graphics to bottom of travelcard
         if (currentTravel.getLine_1() == 7) {
             holder.imageViewLine.setImageResource(R.drawable.linje7);
         }else {

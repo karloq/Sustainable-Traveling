@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO: Make splashscreen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
+                    //TODO: Pass values to sustainability page
                     case R.id.nav_sus:
                         Intent intent = new Intent(MainActivity.this, SustainabilityPageActivity.class);
                         startActivity(intent);
@@ -133,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createTravelList() {
+        //TODO: Add more travels with offsetted time
+        //TODO: Add rest of travels
         final LocalTime now = LocalTime.now();
         int time = (now.getHour()*60) + now.getMinute();
         mTravelList_full = new ArrayList<>();
@@ -160,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        //TODO: Swipe to track travel
+        //TODO: Pop up animation when growing tree
         mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -180,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFilter() {
+        //TODO: Order according to time and sustainability
         mTravelList_filtered.clear();
 
         int maxscore = 0;

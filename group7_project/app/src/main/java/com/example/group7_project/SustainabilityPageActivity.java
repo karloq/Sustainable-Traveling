@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SustainabilityPageActivity extends AppCompatActivity {
+    /* TODO: Make class
+    *   TODO: Make xml
+    *    TODO: Implement graphics */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
