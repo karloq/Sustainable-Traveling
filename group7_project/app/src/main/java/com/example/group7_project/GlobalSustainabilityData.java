@@ -15,14 +15,13 @@ variableName.set/get to get/set the global variables
 public class GlobalSustainabilityData extends Application {
 
     // Number of leafs collected during the month
-    private int leafCounter = 37;
+    private int leafCounter = 0;
     // Number of total collected green trees
-    private int greenTreeCounter = 3;
+    private int greenTreeCounter = 0;
     // Number of total collected golden trees
-    private int goldTreeCounter = 1;
+    private int goldTreeCounter = 0;
     // Rank of the users performance versus other users, 1 to 5
-    private int rank = 5;
-
+    private int rank = 1;
 
     /* SETTERS AND GETTERS */
     public int getLeafCounter() {return leafCounter;}

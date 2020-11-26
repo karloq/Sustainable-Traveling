@@ -54,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="320dp"
+            android:clickable="true"
+            android:focusable="true"
 
             app:srcCompat="@drawable/tree_6" />
 
@@ -207,6 +209,9 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginBottom="40dp"
+
+                    android:clickable="true"
+                    android:focusable="true"
 
                     app:srcCompat="@drawable/toptravelers80" />
 

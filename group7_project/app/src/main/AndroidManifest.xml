@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:name=".GlobalSustainabilityData"
         android:theme="@style/AppTheme">
-        <activity android:name=".SustainabilityPageActivity"></activity>
+        <activity
+            android:name=".SustainabilityPageActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".FilterActivity"
             android:parentActivityName=".MainActivity" />
