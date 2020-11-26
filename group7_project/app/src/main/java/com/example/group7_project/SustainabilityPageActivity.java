@@ -1,10 +1,10 @@
 package com.example.group7_project;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 

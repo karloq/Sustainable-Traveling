@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton button_filter;
 
-    private GlobalSustainabilityData userData;
+    GlobalSustainabilityData userData;
 
     private static final String[] STOPS = new String[]{
             "Chalmers", "Brunnsparken",
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userData = new GlobalSustainabilityData();
+        userData = (GlobalSustainabilityData) getApplicationContext();
 
         MainActivity.context = getApplicationContext();
 
