@@ -117,7 +117,9 @@ public class SustainabilityPageActivity extends AppCompatActivity {
         greenTrees.setText(String.valueOf(globalSustainabilityData.getGreenTreeCounter()));
         goldTrees.setText(String.valueOf(globalSustainabilityData.getGoldTreeCounter()));
         leafs.setText(String.valueOf(globalSustainabilityData.getLeafCounter()));
-        leafsRemaining.setText("För att nå nästa nivå behöver du samla " + String.valueOf(toNextLevel) + " miljöresor");
+
+        String string = "För att nå nästa nivå behöver du samla " + toNextLevel + " miljöresor ";
+        leafsRemaining.setText(string);
 
         setRankLevel(globalSustainabilityData.getRank());
     }

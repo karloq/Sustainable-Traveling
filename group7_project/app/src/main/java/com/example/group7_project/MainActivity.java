@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MAIN_SUSFILTER =
             "com.example.group7_project.EXTRA_SUSFILTER";
 
-    private boolean susFilter;
-
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
 
@@ -51,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton button_filter;
 
+    private GlobalSustainabilityData userData;
+
     private static final String[] STOPS = new String[]{
             "Chalmers", "Brunnsparken",
             "Lindholmspiren", "Lindholmsallén",
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         //TODO:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userData = new GlobalSustainabilityData();
 
         MainActivity.context = getApplicationContext();
 
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         drawer = findViewById(R.id.drawer_layout);
 
         ImageButton open_drawer = findViewById(R.id.button_search_menu);
@@ -107,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-                    //TODO: Pass values to sustainability page
                     case R.id.nav_sus:
                         Intent intent = new Intent(MainActivity.this, SustainabilityPageActivity.class);
                         startActivity(intent);
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FilterActivity.class);
-                intent.putExtra(EXTRA_MAIN_SUSFILTER, susFilter);
+                intent.putExtra(EXTRA_MAIN_SUSFILTER, userData.isSustainabilityFilter());
                 startActivityForResult(intent, ADD_FILTER_REQUEST);
             }
         });
@@ -200,10 +203,10 @@ public class MainActivity extends AppCompatActivity {
             String travelFrom = travel.getFrom().toLowerCase();
             String travelTo = travel.getTo().toLowerCase();
             if (travelFrom.contains(from) && travelTo.contains(to)) {
-                if (susFilter && travel.getScore() > 0) {
+                if (userData.isSustainabilityFilter() && travel.getScore() > 0) {
                     mTravelList_filtered.add(travel);
                 }
-                if (!susFilter) {
+                if (!userData.isSustainabilityFilter()) {
                     mTravelList_filtered.add(travel);
                 }
                 if (travel.getScore() > maxscore) {
@@ -234,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
-            susFilter = data.getBooleanExtra(FilterActivity.EXTRA_SUSFILTER, false);
+            userData.setSustainabilityFilter(data.getBooleanExtra(FilterActivity.EXTRA_SUSFILTER, false));
             Toast.makeText(this, "Filter added", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Filter not added", Toast.LENGTH_SHORT).show();
