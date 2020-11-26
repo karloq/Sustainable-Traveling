@@ -2,6 +2,7 @@ package com.example.group7_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -30,7 +31,12 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity {
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
-
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String LEAF_COUNTER = "leafCounter";
+    public static final String GREEN_TREE_COUNTER = "greenTreeCounter";
+    public static final String GOLD_TREE_COUNTER = "goldenTreeCounter";
+    public static final String RANK = "rank";
+    public static final String FILTER_ON = "filterOn";
     public static final String EXTRA_MAIN_SUSFILTER =
             "com.example.group7_project.EXTRA_SUSFILTER";
 
@@ -92,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         drawer = findViewById(R.id.drawer_layout);
 
         ImageButton open_drawer = findViewById(R.id.button_search_menu);
@@ -135,58 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_FILTER_REQUEST);
             }
         });
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createTravelList() {
-        //TODO: Add more travels with offsetted time
-        //TODO: Add rest of travels
-        final LocalTime now = LocalTime.now();
-        int time = (now.getHour()*60) + now.getMinute();
-        mTravelList_full = new ArrayList<>();
-        mTravelList_filtered = new ArrayList<>();
-        mTravelList_full.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
-                time+3, time+12,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
-                time+2, time+16,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
-                time+5, time+17,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
-                time+10, time+24,
-                "Järntorget", "Centralstationen"));
-    }
-
-    private void buildRecyclerView() {
-        mRecyclerView = findViewById(R.id.RecyclerView_main);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mAdapter = new TravelAdapter(mTravelList_filtered);
-
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-
-        //TODO: Swipe to track travel
-        //TODO: Pop up animation when growing tree
-        mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "You have clicked, but it's not implemented. Yet...",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-            @Override
-            public void onTrackClick(int position) {
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "You're trying to track, but it's not implemented. Yet...",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+        loadData();
     }
 
     public void updateFilter() {
@@ -238,10 +192,89 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
             userData.setSustainabilityFilter(data.getBooleanExtra(FilterActivity.EXTRA_SUSFILTER, false));
+
             Toast.makeText(this, "Filter added", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Filter not added", Toast.LENGTH_SHORT).show();
         }
+        saveData();
+    }
+
+    private void buildRecyclerView() {
+        mRecyclerView = findViewById(R.id.RecyclerView_main);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mAdapter = new TravelAdapter(mTravelList_filtered);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        //TODO: Swipe to track travel
+        //TODO: Pop up animation when growing tree
+        mAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "You have clicked, but it's not implemented. Yet...",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onTrackClick(int position) {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "You're trying to track, but it's not implemented. Yet...",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createTravelList() {
+        //TODO: Add more travels with offsetted time
+        //TODO: Add rest of travels
+        final LocalTime now = LocalTime.now();
+        int time = (now.getHour()*60) + now.getMinute();
+        mTravelList_full = new ArrayList<>();
+        mTravelList_filtered = new ArrayList<>();
+        mTravelList_full.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
+                time+3, time+12,
+                "Järntorget", "Centralstationen"));
+        mTravelList_full.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
+                time+2, time+16,
+                "Järntorget", "Centralstationen"));
+        mTravelList_full.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
+                time+5, time+17,
+                "Järntorget", "Centralstationen"));
+        mTravelList_full.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
+                time+10, time+24,
+                "Järntorget", "Centralstationen"));
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt(LEAF_COUNTER, userData.getLeafCounter());
+        editor.putInt(GREEN_TREE_COUNTER, userData.getGreenTreeCounter());
+        editor.putInt(GOLD_TREE_COUNTER, userData.getGoldTreeCounter());
+        editor.putInt(RANK, userData.getRank());
+        editor.putBoolean(FILTER_ON, userData.isSustainabilityFilter());
+
+        editor.apply();
+
+        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        userData.setLeafCounter(sharedPreferences.getInt(LEAF_COUNTER,0));
+        userData.setGreenTreeCounter(sharedPreferences.getInt(GREEN_TREE_COUNTER,0));
+        userData.setGoldTreeCounter(sharedPreferences.getInt(GOLD_TREE_COUNTER,0));
+        userData.setRank(sharedPreferences.getInt(RANK,1));
+        userData.setSustainabilityFilter(sharedPreferences.getBoolean(FILTER_ON, false));
     }
 
     public static Context getAppContext() {
