@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SustainabilityPageActivity extends AppCompatActivity {
-    ImageView picTree, picRanking;
+    public ImageView picTree, picRanking;
     TextView rankText, greenTrees, goldTrees, leafs, leafsRemaining;
     ImageButton button_back;
     int toNextLevel;
@@ -21,6 +21,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     private int tree_level_4 = 15;
     private int tree_level_5 = 21;
     private int tree_level_6 = 31;
+
 
     // To be able to manage our global variables
     GlobalSustainabilityData globalSustainabilityData;
@@ -137,4 +138,12 @@ public class SustainabilityPageActivity extends AppCompatActivity {
             case 5: picRanking.setImageResource(R.drawable.toptravelers99); rankText.setText(R.string.sustainability_relative_99); break;
         }
     }
+
+    public int getTree_level_1() {return tree_level_1;}
+    public int getTree_level_2() {return tree_level_2;}
+    public int getTree_level_3() {return tree_level_3;}
+    public int getTree_level_4() {return tree_level_4;}
+    public int getTree_level_5() {return tree_level_5;}
+    public int getTree_level_6() {return tree_level_6;}
+
 }
