@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -238,22 +237,10 @@ public class MainActivity extends AppCompatActivity {
     private void createTravelList() {
         //TODO: Add more travels with offsetted time
         //TODO: Add rest of travels
-        final LocalTime now = LocalTime.now();
-        int time = (now.getHour()*60) + now.getMinute();
-        mTravelList_full = new ArrayList<>();
+        TravelData traveldata = new TravelData();
+        mTravelList_full = new ArrayList<>(traveldata.getTravelList());
         mTravelList_filtered = new ArrayList<>();
-        mTravelList_full.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
-                time+3, time+12,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
-                time+2, time+16,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
-                time+5, time+17,
-                "Järntorget", "Centralstationen"));
-        mTravelList_full.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
-                time+10, time+24,
-                "Järntorget", "Centralstationen"));
+
     }
 
     private void saveData() {
