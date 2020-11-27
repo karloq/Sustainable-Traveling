@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadData();
+
     }
 
     public void updateFilter() {
@@ -221,11 +222,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTrackClick(int position) {
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "You're trying to track, but it's not implemented. Yet...",
-                        Toast.LENGTH_SHORT);
-                toast.show();
+            public void onLongItemClick(int position) {
+                int score = mAdapter.getTravel(position).getScore();
+                if(score > 0){
+                    userData.setLeafCounter(userData.getLeafCounter()+score);
+                    Toast.makeText(MainActivity.this, "Saved points", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Not the most sustainable option", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

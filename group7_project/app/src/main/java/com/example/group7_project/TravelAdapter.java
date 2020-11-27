@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelViewHolder> {
     private ArrayList<Travel> mtravelList;
-    private ArrayList<Travel> mtravelListFull;
+
     private OnItemClickListener mlistener;
 
 
@@ -22,7 +22,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
     public  interface OnItemClickListener {
         void onItemClick(int position);
 
-        void onTrackClick(int position);
+        void onLongItemClick(int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -61,23 +61,28 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
                 }
             });
 
-            /*trackButton.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onLongClick(View view) {
+
+                    boolean result = false;
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onTrackClick(position);
+                            listener.onLongItemClick(position);
+                            result = true;
+                        } else {
+                            result = false;
                         }
+                    }
+                    return result;
                 }
             });
-        }*/
         }
     }
 
     public TravelAdapter(ArrayList<Travel> travelList) {
         this.mtravelList = travelList;
-        mtravelListFull = new ArrayList<>(travelList);
         }
 
     @Override
@@ -134,6 +139,10 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
     @Override
     public int getItemCount() {
         return mtravelList.size();
+    }
+
+    public Travel getTravel(int position){
+        return mtravelList.get(position);
     }
 
 }
