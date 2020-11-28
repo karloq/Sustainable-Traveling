@@ -15,4 +15,36 @@
         <!-- Inactive track color(30% transparency) -->
         <item name="android:colorForeground">#757575</item>
     </style>
+    
+    <style name="MyProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">@color/sus_green_medium</item>
+        <item name="android:progressTint">@color/sus_green_dark</item>
+        <item name="android:scaleY">1.4</item>
+        <item name="android:max">31</item>
+        <item name="android:layout_width">280dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginBottom">-40dp</item>
+    </style>
+
+    <style name="ProgressBarText" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:layout_marginLeft">340dp</item>
+    </style>
+
+    <style name="ProgressBarOverText" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:layout_marginTop">-18dp</item>
+    </style>
+
+    <style name="ProgressBarIcon" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:scaleY">1</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_marginLeft">360dp</item>
+    </style>
+    
 </resources>

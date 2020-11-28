@@ -8,4 +8,7 @@
     <color name="sus_green">#C1F1C3</color>
     <color name="sus_green_dark">#004702</color>
     <color name="sus_green_medium">#0B9E0F</color>
+
+    <color name="text_black">#000000</color>
+
 </resources>
