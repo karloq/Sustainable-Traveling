@@ -14,6 +14,9 @@
             android:name=".SustainabilityPageActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
+            android:name=".SustainabilityStatsActivity"
+            android:parentActivityName=".SustainabilityPageActivity"/>
+        <activity
             android:name=".FilterActivity"
             android:parentActivityName=".MainActivity" />
         <activity

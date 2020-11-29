@@ -1,7 +1,9 @@
 package com.example.group7_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     public ImageView picTree, picRanking;
     TextView rankText, greenTrees, goldTrees, leafs, leafsRemaining;
     ImageButton button_back;
+    Button statistics_button;
     int toNextLevel;
 
     // Levels when a tree gets leveled-up
@@ -24,7 +27,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
 
 
     // To be able to manage our global variables
-    GlobalSustainabilityData globalSustainabilityData;
+    GlobalSustainabilityData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,10 @@ public class SustainabilityPageActivity extends AppCompatActivity {
         leafs = findViewById(R.id.nbLeafs);
         leafsRemaining = findViewById(R.id.levelDescription);
         button_back = findViewById(R.id.button_sustainability_back);
+        statistics_button = findViewById(R.id.stats);
 
         // To be able to manage our global variables
-        globalSustainabilityData = (GlobalSustainabilityData) this.getApplicationContext();
+        userData = (GlobalSustainabilityData) this.getApplicationContext();
 
         // Set rank level, tree level, leaf counter, green tree counter, gold tree counter & leafs remaining
         update();
@@ -51,7 +55,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
         picTree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                globalSustainabilityData.setLeafCounter(globalSustainabilityData.getLeafCounter()+1);
+                userData.setLeafCounter(userData.getLeafCounter()+1);
                 update();
             }
         });
@@ -60,10 +64,10 @@ public class SustainabilityPageActivity extends AppCompatActivity {
         picRanking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(globalSustainabilityData.getRank() == 5){
-                    globalSustainabilityData.setRank(1);
+                if(userData.getRank() == 5){
+                    userData.setRank(1);
                 } else {
-                    globalSustainabilityData.setRank(globalSustainabilityData.getRank() + 1);
+                    userData.setRank(userData.getRank() + 1);
                 }
                 update();
             }
@@ -77,7 +81,21 @@ public class SustainabilityPageActivity extends AppCompatActivity {
             }
         });
 
+        // Once "Statistics" is clicked, open stats
+        statistics_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SustainabilityPageActivity.this, SustainabilityStatsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        finish();
+        startActivity(getIntent());}
 
     // Decides which tree level to show on the sustainability page
     // Needs to manually update the levels in case of new playing rules
@@ -108,21 +126,21 @@ public class SustainabilityPageActivity extends AppCompatActivity {
 
     public void update(){
 
-        if(globalSustainabilityData.getLeafCounter() == 21){
-            globalSustainabilityData.setGreenTreeCounter(globalSustainabilityData.getGreenTreeCounter()+1);
-        } else if(globalSustainabilityData.getLeafCounter() == 31){
-            globalSustainabilityData.setGoldTreeCounter(globalSustainabilityData.getGoldTreeCounter()+1);
+        if(userData.getLeafCounter() == 21){
+            userData.setGreenTreeCounter(userData.getGreenTreeCounter()+1);
+        } else if(userData.getLeafCounter() == 31){
+            userData.setGoldTreeCounter(userData.getGoldTreeCounter()+1);
         }
 
-        setTreeLevel(globalSustainabilityData.getLeafCounter());
-        greenTrees.setText(String.valueOf(globalSustainabilityData.getGreenTreeCounter()));
-        goldTrees.setText(String.valueOf(globalSustainabilityData.getGoldTreeCounter()));
-        leafs.setText(String.valueOf(globalSustainabilityData.getLeafCounter()));
+        setTreeLevel(userData.getLeafCounter());
+        greenTrees.setText(String.valueOf(getGreenTrees()));
+        goldTrees.setText(String.valueOf(getGoldTrees()));
+        leafs.setText(String.valueOf(userData.getLeafCounter()));
 
         String string = "För att nå nästa nivå behöver du samla " + toNextLevel + " miljöresor ";
         leafsRemaining.setText(string);
 
-        setRankLevel(globalSustainabilityData.getRank());
+        setRankLevel(userData.getRank());
     }
 
     // Calculates the users rank in comparison to other users
@@ -137,6 +155,30 @@ public class SustainabilityPageActivity extends AppCompatActivity {
             case 4: picRanking.setImageResource(R.drawable.toptravelers80); rankText.setText(R.string.sustainability_relative_80); break;
             case 5: picRanking.setImageResource(R.drawable.toptravelers99); rankText.setText(R.string.sustainability_relative_99); break;
         }
+    }
+
+    public int getGreenTrees(){
+        int temp = 0;
+        if(userData.getLeafs_oct() > 20){
+            temp++;
+        } if(userData.getLeafs_nov() > 20){
+            temp++;
+        } if(userData.getLeafs_dec() > 20){
+            temp++;
+        }
+        return temp;
+    }
+
+    public int getGoldTrees(){
+        int temp = 0;
+        if(userData.getLeafs_oct() > 30){
+            temp++;
+        } if(userData.getLeafs_nov() > 30){
+            temp++;
+        } if(userData.getLeafs_dec() > 30){
+            temp++;
+        }
+        return temp;
     }
 
     public int getTree_level_1() {return tree_level_1;}

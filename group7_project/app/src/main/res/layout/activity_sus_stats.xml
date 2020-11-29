@@ -23,7 +23,7 @@
             android:backgroundTint="@color/colorAccent">
 
             <ImageButton
-                android:id="@+id/button_sustainability_back"
+                android:id="@+id/button_stats_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
@@ -39,35 +39,72 @@
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
+            <Button
+                android:id="@+id/clear_data"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="235dp"
+                android:layout_marginTop="12dp"
+                android:textAlignment="center"
+                android:text="Clear data"
+                android:textSize="12dp"
+                android:background="@color/colorPrimary"
+                />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="12dp"
+                android:textAlignment="center"
+                android:text="New month"
+                android:textSize="12dp"
+                android:background="@color/colorPrimary"
+                />
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="57dp"
+                android:text="Current month:             X"
+                android:textSize="11dp"
+                android:textAlignment="center"
+                />
+
         </androidx.cardview.widget.CardView>
 
         <View
             android:layout_width="4dp"
-            android:layout_marginLeft="210dp"
+            android:layout_marginLeft="200dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_alignTop="@+id/pb_jan"
             android:layout_alignBottom="@+id/pb_dec"
             android:translationZ="10dp"
             android:background="@drawable/dotted"
-            android:layerType="software"/>
+            android:layerType="software"
+            android:layout_height="600dp" />
 
         <View
             android:layout_width="4dp"
-            android:layout_marginLeft="305dp"
+            android:layout_marginLeft="285dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:layout_alignTop="@+id/pb_jan"
             android:layout_alignBottom="@+id/pb_dec"
             android:translationZ="10dp"
             android:background="@drawable/dotted"
-            android:layerType="software"/>
+            android:layerType="software"
+            android:layout_height="600dp"/>
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="160dp"
-            android:layout_marginLeft="198dp"
+            android:layout_marginLeft="183dp"
             android:src="@drawable/tree_6"
             />
 
@@ -75,7 +112,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="160dp"
-            android:layout_marginLeft="293dp"
+            android:layout_marginLeft="273dp"
             android:src="@drawable/tree_7"
             />
 
@@ -84,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pb_dec"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"
             android:text="Total 2020: "
             android:textStyle="bold"
@@ -96,10 +133,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pb_dec"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@id/total_2020"
-            android:layout_marginRight="-30dp"
-            android:text="T"
+            android:layout_marginRight="-40dp"
+            android:text="X"
             android:textSize="18dp"
             android:textColor="@color/text_black"
             />
@@ -109,7 +146,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignBottom="@id/total_leafs"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@+id/total_leafs"
             android:layout_marginRight="-30dp"
             android:src="@drawable/leaf_green"
@@ -122,10 +159,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pb_dec"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@id/total_pic_leafs"
             android:layout_marginRight="-30dp"
-            android:text="T"
+            android:text="X"
             android:textSize="18dp"
             android:textColor="@color/text_black"
             />
@@ -135,7 +172,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignBottom="@id/total_leafs"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@+id/total_green_trees"
             android:layout_marginRight="-30dp"
             android:src="@drawable/tree_6"
@@ -148,10 +185,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pb_dec"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@id/total_pic_green_trees"
             android:layout_marginRight="-30dp"
-            android:text="T"
+            android:text="X"
             android:textSize="18dp"
             android:textColor="@color/text_black"
             />
@@ -161,7 +198,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignBottom="@id/total_leafs"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_alignEnd="@+id/total_gold_trees"
             android:layout_marginRight="-30dp"
             android:src="@drawable/tree_7"
@@ -181,7 +218,7 @@
                 android:id="@+id/pb_jan"
                 style="@style/MyProgressBar"
                 android:layout_marginTop="200dp"
-                android:progress="30" />
+                android:progress="37" />
 
             <TextView
                 android:id="@+id/pb_leafs_jan"
@@ -189,7 +226,7 @@
                 style="@style/ProgressBarText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:text="37"/>
 
             <ImageView
                 android:layout_alignBottom="@+id/pb_jan"
@@ -210,7 +247,7 @@
                     android:id="@+id/pb_feb"
                     style="@style/MyProgressBar"
                     android:layout_alignBottom="@+id/pb_jan"
-                    android:progress="20" />
+                    android:progress="21" />
 
                 <TextView
                     android:id="@+id/pb_leafs_feb"
@@ -218,7 +255,7 @@
                     style="@style/ProgressBarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"/>
+                    android:text="21"/>
 
                 <ImageView
                     android:layout_alignBottom="@+id/pb_feb"
@@ -239,7 +276,7 @@
                         android:id="@+id/pb_mar"
                         style="@style/MyProgressBar"
                         android:layout_alignBottom="@+id/pb_feb"
-                        android:progress="21" />
+                        android:progress="27" />
 
                     <TextView
                         android:id="@+id/pb_leafs_mar"
@@ -247,7 +284,7 @@
                         style="@style/ProgressBarText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"/>
+                        android:text="27"/>
 
                     <ImageView
                         android:layout_alignBottom="@+id/pb_mar"
@@ -276,7 +313,7 @@
                             style="@style/ProgressBarText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"/>
+                            android:text="5"/>
 
                         <ImageView
                             android:layout_alignBottom="@+id/pb_apr"
@@ -297,7 +334,7 @@
                                 android:id="@+id/pb_may"
                                 style="@style/MyProgressBar"
                                 android:layout_alignBottom="@+id/pb_apr"
-                                android:progress="10" />
+                                android:progress="13" />
 
                             <TextView
                                 android:id="@+id/pb_leafs_may"
@@ -305,7 +342,7 @@
                                 style="@style/ProgressBarText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"/>
+                                android:text="13"/>
 
                             <ImageView
                                 android:layout_alignBottom="@+id/pb_may"
@@ -334,7 +371,7 @@
                                     style="@style/ProgressBarText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"/>
+                                    android:text="40"/>
 
                                 <ImageView
                                     android:layout_alignBottom="@+id/pb_jun"
@@ -355,7 +392,7 @@
                                         android:id="@+id/pb_jul"
                                         style="@style/MyProgressBar"
                                         android:layout_alignBottom="@+id/pb_jun"
-                                        android:progress="27" />
+                                        android:progress="20" />
 
                                     <TextView
                                         android:id="@+id/pb_leafs_jul"
@@ -363,7 +400,7 @@
                                         style="@style/ProgressBarText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="0"/>
+                                        android:text="20"/>
 
                                     <ImageView
                                         android:layout_alignBottom="@+id/pb_jul"
@@ -384,7 +421,7 @@
                                             android:id="@+id/pb_aug"
                                             style="@style/MyProgressBar"
                                             android:layout_alignBottom="@+id/pb_jul"
-                                            android:progress="0" />
+                                            android:progress="2" />
 
                                         <TextView
                                             android:id="@+id/pb_leafs_aug"
@@ -392,7 +429,7 @@
                                             style="@style/ProgressBarText"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="0"/>
+                                            android:text="2"/>
 
                                         <ImageView
                                             android:layout_alignBottom="@+id/pb_aug"
@@ -421,7 +458,7 @@
                                                 style="@style/ProgressBarText"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="0"/>
+                                                android:text="23"/>
 
                                             <ImageView
                                                 android:layout_alignBottom="@+id/pb_sep"

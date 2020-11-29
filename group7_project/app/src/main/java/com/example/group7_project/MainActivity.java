@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String GREEN_TREE_COUNTER = "greenTreeCounter";
     public static final String GOLD_TREE_COUNTER = "goldenTreeCounter";
     public static final String RANK = "rank";
+    public static final String CURRENT_MOTNH = "current_month";
+    public static final String LEAFS_OCT = "leafs_oct";
+    public static final String LEAFS_NOV = "leafs_nov";
+    public static final String LEAFS_DEC = "leafs_dec";
     public static final String FILTER_ON = "filterOn";
     public static final String EXTRA_MAIN_SUSFILTER =
             "com.example.group7_project.EXTRA_SUSFILTER";
@@ -251,8 +255,11 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(GREEN_TREE_COUNTER, userData.getGreenTreeCounter());
         editor.putInt(GOLD_TREE_COUNTER, userData.getGoldTreeCounter());
         editor.putInt(RANK, userData.getRank());
+        editor.putInt(CURRENT_MOTNH, userData.getCurrent_month());
+        editor.putInt(LEAFS_OCT, userData.getLeafs_oct());
+        editor.putInt(LEAFS_NOV, userData.getLeafs_nov());
+        editor.putInt(LEAFS_DEC, userData.getLeafs_dec());
         editor.putBoolean(FILTER_ON, userData.isSustainabilityFilter());
-
         editor.apply();
 
         Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
@@ -265,6 +272,10 @@ public class MainActivity extends AppCompatActivity {
         userData.setGreenTreeCounter(sharedPreferences.getInt(GREEN_TREE_COUNTER,0));
         userData.setGoldTreeCounter(sharedPreferences.getInt(GOLD_TREE_COUNTER,0));
         userData.setRank(sharedPreferences.getInt(RANK,1));
+        userData.setCurrent_month(sharedPreferences.getInt(CURRENT_MOTNH,0));
+        userData.setLeafs_oct(sharedPreferences.getInt(LEAFS_OCT,0));
+        userData.setLeafs_nov(sharedPreferences.getInt(LEAFS_NOV,0));
+        userData.setLeafs_dec(sharedPreferences.getInt(LEAFS_DEC,0));
         userData.setSustainabilityFilter(sharedPreferences.getBoolean(FILTER_ON, false));
     }
 
