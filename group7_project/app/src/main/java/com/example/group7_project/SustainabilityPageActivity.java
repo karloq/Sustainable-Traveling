@@ -25,6 +25,9 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     private int tree_level_5 = 21;
     private int tree_level_6 = 31;
 
+    public static final int INIT_GREEN_TREES = 5;
+    public static final int INIT_GOLD_TREES = 2;
+
 
     // To be able to manage our global variables
     GlobalSustainabilityData userData;
@@ -158,7 +161,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     }
 
     public int getGreenTrees(){
-        int temp = 0;
+        int temp = INIT_GREEN_TREES;
         if(userData.getLeafs_oct() > 20){
             temp++;
         } if(userData.getLeafs_nov() > 20){
@@ -170,7 +173,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     }
 
     public int getGoldTrees(){
-        int temp = 0;
+        int temp = INIT_GOLD_TREES;
         if(userData.getLeafs_oct() > 30){
             temp++;
         } if(userData.getLeafs_nov() > 30){
