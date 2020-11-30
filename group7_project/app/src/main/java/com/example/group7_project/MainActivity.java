@@ -25,7 +25,14 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Stack;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static Context context;
@@ -74,6 +81,27 @@ public class MainActivity extends AppCompatActivity {
         //TODO:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.resrobot.se/v2/trip?key=9caf98cd-80b7-4594-a7b8-950e463047af&")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        TravelAPI travelAPI = retrofit.create(TravelAPI.class);
+
+        Call<List<Trip>> call = travelAPI.getTrips();
+
+        call.enqueue(new Callback<List<Trip>>() {
+            @Override
+            public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Trip>> call, Throwable t) {
+
+            }
+        });
 
         userData = (GlobalSustainabilityData) getApplicationContext();
 
