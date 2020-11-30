@@ -39,6 +39,18 @@
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
+            <Button
+                android:id="@+id/stats"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="290dp"
+                android:layout_marginTop="12dp"
+                android:textAlignment="center"
+                android:text="Statistics"
+                android:textSize="14dp"
+                android:background="@color/colorPrimary"
+                />
+
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
