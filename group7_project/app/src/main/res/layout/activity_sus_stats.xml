@@ -104,7 +104,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="160dp"
-            android:layout_marginLeft="183dp"
+            android:layout_marginLeft="188dp"
             android:src="@drawable/tree_6"
             />
 

@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String LEAFS_OCT = "leafs_oct";
     public static final String LEAFS_NOV = "leafs_nov";
     public static final String LEAFS_DEC = "leafs_dec";
+    public static final String OCT_GREEN_CHECK = "octGreen";
+    public static final String NOV_GREEN_CHECK = "novGreen";
+    public static final String DEC_GREEN_CHECK = "decGreen";
+    public static final String OCT_GOLD_CHECK = "octGold";
+    public static final String NOV_GOLD_CHECK = "novGold";
+    public static final String DEC_GOLD_CHECK = "decGold";
     public static final String FILTER_ON = "filterOn";
     public static final String EXTRA_MAIN_SUSFILTER =
             "com.example.group7_project.EXTRA_SUSFILTER";
@@ -259,6 +265,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(LEAFS_OCT, userData.getLeafs_oct());
         editor.putInt(LEAFS_NOV, userData.getLeafs_nov());
         editor.putInt(LEAFS_DEC, userData.getLeafs_dec());
+        editor.putBoolean(OCT_GREEN_CHECK, userData.isOctGreen());
+        editor.putBoolean(NOV_GREEN_CHECK, userData.isNovGreen());
+        editor.putBoolean(DEC_GREEN_CHECK, userData.isDecGreen());
+        editor.putBoolean(OCT_GOLD_CHECK, userData.isOctGold());
+        editor.putBoolean(NOV_GOLD_CHECK, userData.isNovGold());
+        editor.putBoolean(DEC_GOLD_CHECK, userData.isDecGold());
         editor.putBoolean(FILTER_ON, userData.isSustainabilityFilter());
         editor.apply();
 
@@ -276,6 +288,12 @@ public class MainActivity extends AppCompatActivity {
         userData.setLeafs_oct(sharedPreferences.getInt(LEAFS_OCT,0));
         userData.setLeafs_nov(sharedPreferences.getInt(LEAFS_NOV,0));
         userData.setLeafs_dec(sharedPreferences.getInt(LEAFS_DEC,0));
+        userData.setOctGreen(sharedPreferences.getBoolean(OCT_GREEN_CHECK, false));
+        userData.setNovGreen(sharedPreferences.getBoolean(NOV_GREEN_CHECK, false));
+        userData.setDecGreen(sharedPreferences.getBoolean(DEC_GREEN_CHECK, false));
+        userData.setOctGold(sharedPreferences.getBoolean(OCT_GOLD_CHECK, false));
+        userData.setNovGold(sharedPreferences.getBoolean(NOV_GOLD_CHECK, false));
+        userData.setDecGold(sharedPreferences.getBoolean(DEC_GOLD_CHECK, false));
         userData.setSustainabilityFilter(sharedPreferences.getBoolean(FILTER_ON, false));
     }
 

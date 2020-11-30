@@ -90,6 +90,18 @@ public class GlobalSustainabilityData extends Application {
     public void setLeafs_nov(int leafs_nov) {this.leafs_nov = leafs_nov;}
     public int getLeafs_dec() {return leafs_dec;}
     public void setLeafs_dec(int leafs_dec) {this.leafs_dec = leafs_dec;}
+    public boolean isOctGreen() {return octGreen;}
+    public void setOctGreen(boolean octGreen) {this.octGreen = octGreen;}
+    public boolean isNovGreen() {return novGreen;}
+    public void setNovGreen(boolean novGreen) {this.novGreen = novGreen;}
+    public boolean isDecGreen() {return decGreen;}
+    public void setDecGreen(boolean decGreen) {this.decGreen = decGreen;}
+    public boolean isOctGold() {return octGold;}
+    public void setOctGold(boolean octGold) {this.octGold = octGold;}
+    public boolean isNovGold() {return novGold;}
+    public void setNovGold(boolean novGold) {this.novGold = novGold;}
+    public boolean isDecGold() {return decGold;}
+    public void setDecGold(boolean decGold) {this.decGold = decGold;}
 
 
 }
