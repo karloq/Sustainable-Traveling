@@ -55,14 +55,5 @@ public class TravelData {
         this.travelList = travelList;
     }
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.resrobot.se/v2/trip?key=9caf98cd-80b7-4594-a7b8-950e463047af&")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    TravelAPI travelAPI = retrofit.create(TravelAPI.class);
-
-    Call<List<Trip>> call = travelAPI.getTrips();
-
 }
 
