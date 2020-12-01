@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -16,9 +17,26 @@ import static java.lang.Integer.parseInt;
 //For API usage, to be implemented
 public class Trip {
 
-    public int findStopId(String stopToFind){
+    private ArrayList<Travel> travels = new ArrayList<>();
+
+    public ArrayList<Travel> getTravels() {
+        return travels;
+    }
+
+    public void setTravels(String from, String to) {
+        if (travels.size() != 0) travels.clear();
+        try {
+            findTravel(from, to);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int findStopId(String stopToFind) {
         String key = "9caf98cd-80b7-4594-a7b8-950e463047af";
-        String stop = stopToFind+"(goteborgkn)";
+        String stop = stopToFind + "(goteborgkn)";
         String url = "https://api.resrobot.se/v2/location.name?key=" + key +
                 "&input=" + stop
                 + "&format=json";
@@ -49,7 +67,6 @@ public class Trip {
                 String id_string = object.getString("id");
 
                 returnValue = parseInt(id_string);
-                System.out.println(returnValue);
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -59,10 +76,12 @@ public class Trip {
         return returnValue;
     }
 
-    public void findTravel(int fromStop ,int toStop) throws IOException, JSONException {
+    public void findTravel(String fromStop, String toStop) throws IOException, JSONException {
+        int fromStopId = findStopId(fromStop);
+        int toStopId = findStopId(toStop);
         String key = "9caf98cd-80b7-4594-a7b8-950e463047af";
-        String origin = Integer.toString(fromStop);
-        String destination = Integer.toString(toStop);
+        String origin = Integer.toString(fromStopId);
+        String destination = Integer.toString(toStopId);
         String url = "https://api.resrobot.se/v2/trip?key=" + key
                 + "&originId=" + origin
                 + "&destId=" + destination
@@ -70,6 +89,8 @@ public class Trip {
 
         URL obj;
         HttpsURLConnection connection;
+
+
         {
             obj = new URL(url);
             connection = (HttpsURLConnection) obj.openConnection();
@@ -88,22 +109,74 @@ public class Trip {
 
             JSONArray array = jsonObject.getJSONArray("Trip");
 
-            JSONObject object = array.getJSONObject(0);
+            for (int i = 0; i < array.length(); i++) {
+                int id = 0;
+                boolean change;
+                int line_1 = 0;
+                int line_2 = 0;
+                int duration_1 = 0;
+                int duration_2 = 0;
+                int duration_wait = 0;
+                int score = 0;
+                int departure;
+                int arrival = 0;
+                String from = fromStop;
+                String to = toStop;
+                boolean best = false;
 
-            String duration = object.getString("duration");
+                JSONObject object = array.getJSONObject(i);
+                JSONArray legs = object.getJSONObject("LegList").getJSONArray("Leg");
+                JSONObject leg = legs.getJSONObject(0);
+                change = legs.length() > 1;
 
-            object = object.getJSONObject("LegList").getJSONArray("Leg").getJSONObject(0);
-
-            String from = object.getJSONObject("Origin").getString("name");
-            String to = object.getJSONObject("Destination").getString("name");
-
+                from = leg.getJSONObject("Origin").getString("name");
+                String str =(leg.getString("time"));
+                departure = timeToInt(str);
 
 
-            //System.out.println(from);
-            //System.out.println(to);
-            //System.out.println(duration);
+                switch (legs.length()) {
+                    case 0:
+                        break;
+                    case 1:
+                        to = leg.getJSONObject("Destination").getString("name");
+                        arrival = timeToInt(leg.getJSONObject("Destination").getString("time"));
+                        line_1 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
+                        duration_1 = arrival-departure;
+                        duration_2 = 0;
+                        duration_wait = 0;
+                        break;
+                    case 2:
+                        int leg_1_start = timeToInt(leg.getJSONObject("Origin").getString("time"));
+                        int leg_1_end = timeToInt(leg.getJSONObject("Destination").getString("time"));
+                        duration_1 = leg_1_end - leg_1_start;
+                        line_1 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
+
+                        leg = legs.getJSONObject(1);
+                        int leg_2_start = timeToInt(leg.getJSONObject("Origin").getString("time"));
+                        int leg_2_end = timeToInt(leg.getJSONObject("Destination").getString("time"));
+                        duration_2 = leg_2_end - leg_2_start;
+                        duration_wait = leg_2_start - leg_1_end;
+                        line_2 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
+                        to = leg.getJSONObject("Destination").getString("name");
+                        break;
+                    default:
+                        break;
+                }
+            
+                Travel travel = new Travel(id,change,line_1,line_2,
+                        duration_1,duration_2,duration_wait,
+                        score,departure,arrival,from,to);
+
+
+            }
 
         }
 
     }
+    public int timeToInt(String time){
+        StringBuilder sb = new StringBuilder(time);
+        return Integer.parseInt(sb.substring(0,2))*60 + Integer.parseInt(sb.substring(3,5));
+    }
+
 }
+
