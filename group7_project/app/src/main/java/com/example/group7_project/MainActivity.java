@@ -82,26 +82,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.resrobot.se/v2/trip?key=9caf98cd-80b7-4594-a7b8-950e463047af&")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        TravelAPI travelAPI = retrofit.create(TravelAPI.class);
-
-        Call<List<Trip>> call = travelAPI.getTrips();
-
-        call.enqueue(new Callback<List<Trip>>() {
-            @Override
-            public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Trip>> call, Throwable t) {
-
-            }
-        });
 
         userData = (GlobalSustainabilityData) getApplicationContext();
 
@@ -115,13 +95,14 @@ public class MainActivity extends AppCompatActivity {
         edittext_to.setAdapter(adapter);
         edittext_from.setAdapter(adapter);
 
-        createTravelList();
-        buildRecyclerView();
+        //createTravelList();
+        //buildRecyclerView();
 
         edittext_to.setOnKeyListener(new View.OnKeyListener() {
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
                     updateFilter();
                     return true;
                 }
@@ -175,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void updateFilter() {
         //TODO: Order according to time and sustainability
         mTravelList_filtered.clear();
@@ -184,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
         String to = edittext_to.getText().toString().toLowerCase();
         String from = edittext_from.getText().toString().toLowerCase();
+        createTravelList(from, to);
+        buildRecyclerView();
 
         for (Travel travel : mTravelList_full) {
             String travelFrom = travel.getFrom().toLowerCase();
@@ -266,10 +250,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createTravelList() {
+    private void createTravelList(String from, String to) {
         //TODO: Add more travels with offsetted time
         //TODO: Add rest of travels
-        TravelData traveldata = new TravelData();
+        TravelData traveldata = new TravelData(from, to);
         mTravelList_full = new ArrayList<>(traveldata.getTravelList());
         mTravelList_filtered = new ArrayList<>();
 

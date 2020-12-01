@@ -4,42 +4,15 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TravelData {
     public ArrayList travelList;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public TravelData() {
-        this.travelList = new ArrayList<Travel>();
-        addTravels(1);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void addTravels(int travelid){
-        final LocalTime now = LocalTime.now();
-        int time = (now.getHour()*60) + now.getMinute();
-        switch (travelid) {
-            case 1:
-                travelList.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
-                        time+3, time+12,
-                        "Järntorget", "Centralstationen"));
-                travelList.add(new Travel(2, false, 3, 0, 14, 0, 0, 0,
-                        time+2, time+16,
-                        "Järntorget", "Centralstationen"));
-                travelList.add(new Travel(3, true, 241, 1337, 7, 5, 0, 0,
-                        time+5, time+17,
-                        "Järntorget", "Centralstationen"));
-                travelList.add(new Travel(4, true, 50, 1337, 7, 7, 0, 0,
-                        time+10, time+24,
-                        "Järntorget", "Centralstationen"));
-                break;
-            default:
-                travelList.add(new Travel(1, false, 60, 0, 9, 0, 0, 1,
-                        time+3, time+12,
-                        "Järntorget", "Centralstationen"));
-        }
+    public TravelData(String from, String to) {
+        Trip trip = new Trip(from, to);
+        this.travelList = new ArrayList<Travel>(trip.getTravels());
     }
 
     public ArrayList getTravelList() {

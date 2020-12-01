@@ -17,7 +17,13 @@ import static java.lang.Integer.parseInt;
 //For API usage, to be implemented
 public class Trip {
 
-    private ArrayList<Travel> travels = new ArrayList<>();
+    private ArrayList<Travel> travels;
+
+    public Trip(String from, String to) {
+        travels = new ArrayList<>();
+        setTravels(from, to);
+    }
+
 
     public ArrayList<Travel> getTravels() {
         return travels;
@@ -129,6 +135,8 @@ public class Trip {
                 JSONObject leg = legs.getJSONObject(0);
                 change = legs.length() > 1;
 
+                boolean walk = leg.getJSONObject("Destination").getString("type").equals("WALK");
+
                 from = leg.getJSONObject("Origin").getString("name");
                 String str =(leg.getString("time"));
                 departure = timeToInt(str);
@@ -152,11 +160,17 @@ public class Trip {
                         line_1 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
 
                         leg = legs.getJSONObject(1);
+                        walk = leg.getJSONObject("Destination").getString("type").equals("WALK");
                         int leg_2_start = timeToInt(leg.getJSONObject("Origin").getString("time"));
                         int leg_2_end = timeToInt(leg.getJSONObject("Destination").getString("time"));
                         duration_2 = leg_2_end - leg_2_start;
                         duration_wait = leg_2_start - leg_1_end;
-                        line_2 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
+                        if(!walk){
+                            line_2 = Integer.parseInt(leg.getJSONObject("Product").getString("num"));
+                        }else{
+                            line_2 = 0;
+                        }
+
                         to = leg.getJSONObject("Destination").getString("name");
                         break;
                     default:
