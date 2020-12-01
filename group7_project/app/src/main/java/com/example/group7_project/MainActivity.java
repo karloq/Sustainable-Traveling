@@ -235,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 int score = mAdapter.getTravel(position).getScore();
                 if(score > 0){
                     userData.setLeafCounter(userData.getLeafCounter()+score);
+                    saveData();
                     Toast.makeText(MainActivity.this, "Saved points", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Not the most sustainable option", Toast.LENGTH_SHORT).show();

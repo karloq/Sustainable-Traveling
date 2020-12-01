@@ -1,6 +1,7 @@
 package com.example.group7_project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,25 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SustainabilityPageActivity extends AppCompatActivity {
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String LEAF_COUNTER = "leafCounter";
+    public static final String GREEN_TREE_COUNTER = "greenTreeCounter";
+    public static final String GOLD_TREE_COUNTER = "goldenTreeCounter";
+    public static final String RANK = "rank";
+    public static final String CURRENT_MOTNH = "current_month";
+    public static final String LEAFS_OCT = "leafs_oct";
+    public static final String LEAFS_NOV = "leafs_nov";
+    public static final String LEAFS_DEC = "leafs_dec";
+    public static final String OCT_GREEN_CHECK = "octGreen";
+    public static final String NOV_GREEN_CHECK = "novGreen";
+    public static final String DEC_GREEN_CHECK = "decGreen";
+    public static final String OCT_GOLD_CHECK = "octGold";
+    public static final String NOV_GOLD_CHECK = "novGold";
+    public static final String DEC_GOLD_CHECK = "decGold";
+    public static final int INIT_GREEN_TREES = 5;
+    public static final int INIT_GOLD_TREES = 2;
+
     public ImageView picTree, picRanking;
     TextView rankText, greenTrees, goldTrees, leafs, leafsRemaining;
     ImageButton button_back;
@@ -24,10 +44,6 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     private int tree_level_4 = 15;
     private int tree_level_5 = 21;
     private int tree_level_6 = 31;
-
-    public static final int INIT_GREEN_TREES = 5;
-    public static final int INIT_GOLD_TREES = 2;
-
 
     // To be able to manage our global variables
     GlobalSustainabilityData userData;
@@ -59,6 +75,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 userData.setLeafCounter(userData.getLeafCounter()+1);
+                saveLeafsAndTrees();
                 update();
             }
         });
@@ -72,6 +89,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
                 } else {
                     userData.setRank(userData.getRank() + 1);
                 }
+                saveLeafsAndTrees();
                 update();
             }
         });
@@ -182,6 +200,28 @@ public class SustainabilityPageActivity extends AppCompatActivity {
             temp++;
         }
         return temp;
+    }
+
+    public void saveLeafsAndTrees(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt(LEAF_COUNTER, userData.getLeafCounter());
+        editor.putInt(GREEN_TREE_COUNTER, userData.getGreenTreeCounter());
+        editor.putInt(GOLD_TREE_COUNTER, userData.getGoldTreeCounter());
+        editor.putInt(RANK, userData.getRank());
+        editor.putInt(CURRENT_MOTNH, userData.getCurrent_month());
+        editor.putInt(LEAFS_OCT, userData.getLeafs_oct());
+        editor.putInt(LEAFS_NOV, userData.getLeafs_nov());
+        editor.putInt(LEAFS_DEC, userData.getLeafs_dec());
+        editor.putBoolean(OCT_GREEN_CHECK, userData.isOctGreen());
+        editor.putBoolean(NOV_GREEN_CHECK, userData.isNovGreen());
+        editor.putBoolean(DEC_GREEN_CHECK, userData.isDecGreen());
+        editor.putBoolean(OCT_GOLD_CHECK, userData.isOctGold());
+        editor.putBoolean(NOV_GOLD_CHECK, userData.isNovGold());
+        editor.putBoolean(DEC_GOLD_CHECK, userData.isDecGold());
+        editor.apply();
+
     }
 
     public int getTree_level_1() {return tree_level_1;}
