@@ -25,14 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Stack;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static Context context;
@@ -159,8 +152,9 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void updateFilter() {
         //TODO: Order according to time and sustainability
-        mTravelList_filtered.clear();
-
+        if(mTravelList_filtered != null) {
+            mTravelList_filtered.clear();
+        }
         int maxscore = 0;
         Stack sus = new Stack();
 

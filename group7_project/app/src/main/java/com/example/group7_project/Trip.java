@@ -138,7 +138,7 @@ public class Trip {
                 boolean walk = leg.getJSONObject("Destination").getString("type").equals("WALK");
 
                 from = leg.getJSONObject("Origin").getString("name");
-                String str =(leg.getString("time"));
+                String str =(leg.getJSONObject("Origin").getString("time"));
                 departure = timeToInt(str);
 
 
