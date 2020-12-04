@@ -29,14 +29,11 @@ public class TravelData {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public TravelData(String from, String to) {
-        //Trip trip = new Trip(from, to);
-        //this.travelList = new ArrayList<Travel>(trip.getTravels());
-        int from_id = fetchStopId(from);
-        int to_id = fetchStopId(to);
-        travelList = new ArrayList(fillTravelList(from, to));
+        fetchStopId_1(from, to);
     }
 
-    public int fetchStopId(String stop){
+    public int fetchStopId_1(final String from, final String to){
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_STOP)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -44,13 +41,45 @@ public class TravelData {
 
         final int[] stopId = {0};
         StopAPI stopAPI = retrofit.create(StopAPI.class);
-        Call<Stop> call = stopAPI.getStop();
+        Call<Stop> call = stopAPI.getStop(from, "json");
         call.enqueue(new Callback<Stop>() {
             @Override
             public void onResponse(Call<Stop> call, Response<Stop> response) {
+                stopId[0] = response.body().getStoplocation().get(0).getId();
+                Log.d(TAG, String.valueOf(stopId[0]));
                 Log.d(TAG, "successful stop-fetch");
 
+                fetchStopId_2(from, to, stopId[0]);
+
+        }
+
+            @Override
+            public void onFailure(Call<Stop> call, Throwable t) {
+                Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
+            }
+        });
+        return stopId[0];
+    }
+
+    public int fetchStopId_2(final String from, final String to, final int from_id){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL_STOP)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        final int[] stopId = {0};
+        StopAPI stopAPI = retrofit.create(StopAPI.class);
+        Call<Stop> call = stopAPI.getStop(to, "json");
+        call.enqueue(new Callback<Stop>() {
+            @Override
+            public void onResponse(Call<Stop> call, Response<Stop> response) {
                 stopId[0] = response.body().getStoplocation().get(0).getId();
+                Log.d(TAG, String.valueOf(stopId[0]));
+                Log.d(TAG, "successful stop-fetch");
+
+                fillTravelList(from, to, from_id, stopId[0]);
+
             }
 
             @Override
@@ -61,7 +90,7 @@ public class TravelData {
         return stopId[0];
     }
 
-    public ArrayList fillTravelList(final String from_name, final String to_name){
+    public void fillTravelList(final String from_name, final String to_name, int from_id, int to_id){
         final ArrayList<Travel> temp = new ArrayList<>();
 
 
@@ -69,19 +98,18 @@ public class TravelData {
         String to = to_name;
         boolean best = false;
 
-        int from_id = fetchStopId(from_name);
-        int to_id = fetchStopId(to_name);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_TRIP)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         TripAPI tripAPI = retrofit.create(TripAPI.class);
-        Call<TripPlan> call = tripAPI.getTrips();
+        Call<TripPlan> call = tripAPI.getTrips(from_id, to_id, "json");
         call.enqueue(new Callback<TripPlan>() {
             @Override
             public void onResponse(Call<TripPlan> call, Response<TripPlan> response) {
                 Log.d(TAG, "successful trip-fetch");
+                Log.d(TAG, response.body().toString());
 
 
                 Trip trip;
@@ -96,8 +124,8 @@ public class TravelData {
                 Product product_2;
                 int id = 0;
                 boolean change;
-                int line_1 = 0;
-                int line_2 = 0;
+                String line_1 = "";
+                String line_2 = "";
                 int duration_1 = 0;
                 int duration_2 = 0;
                 int duration_wait = 0;
@@ -114,7 +142,7 @@ public class TravelData {
                     product_1 = leg_1.getProduct();
                     destination_1 = leg_1.getDestination();
                     departure = timeToInt(origin_1.getTime());
-                    line_1 = Integer.parseInt(product_1.getNum());
+                    line_1 = product_1.getNum();
                     arrival = timeToInt(destination_1.getTime());
                     duration_1 = arrival - departure;
                     switch (legs.size()){
@@ -133,7 +161,7 @@ public class TravelData {
                             arrival = timeToInt(destination_2.getTime());
                             duration_2 = arrival - departure_2;
                             product_2 = leg_2.getProduct();
-                            line_2 = Integer.parseInt(product_2.getNum());
+                            line_2 = product_2.getNum();
                             change = true;
                         default:
                             continue;
@@ -150,7 +178,7 @@ public class TravelData {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
             }
         });
-        return temp;
+       travelList = new ArrayList(temp);
     }
 
     public static int timeToInt(String time){

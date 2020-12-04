@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
         createTravelList(from, to);
         buildRecyclerView();
 
-        for (Travel travel : mTravelList_full) {
+        //TODO
+       for (Travel travel : mTravelList_full) {
             String travelFrom = travel.getFrom().toLowerCase();
             String travelTo = travel.getTo().toLowerCase();
             if (travelFrom.contains(from) && travelTo.contains(to)) {
@@ -248,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
         //TODO: Add more travels with offsetted time
         //TODO: Add rest of travels
         TravelData traveldata = new TravelData(from, to);
+        traveldata.fetchStopId_1(from, to);
+
         mTravelList_full = new ArrayList<>(traveldata.getTravelList());
         mTravelList_filtered = new ArrayList<>();
 

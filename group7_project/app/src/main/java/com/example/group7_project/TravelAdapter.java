@@ -104,7 +104,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
 
         //TODO: Add all other tram/bus/boat line graphics
         //TODO: Add graphics to bottom of travelcard
-        if (currentTravel.getLine_1() == 7) {
+        if (currentTravel.getLine_1().equals("7")) {
             holder.imageViewLine.setImageResource(R.drawable.linje7);
         }else {
             holder.imageViewLine.setImageResource(R.drawable.linje6);
