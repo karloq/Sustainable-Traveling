@@ -35,10 +35,12 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewArrival;
         private ImageView imageViewLine_1;
         private ImageView imageViewLine_2;
+        private ImageView imageViewLine_3;
         private CardView cardView;
         private TextView textViewDuration;
         private TextView textViewLine_1;
         private TextView textViewLine_2;
+        private TextView textViewLine_3;
 
         public TravelViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -47,12 +49,13 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
             imageViewLine_1 = itemView.findViewById(R.id.imageview_travel_line_1);
             imageViewLine_2 = itemView.findViewById(R.id.imageview_travel_line_2);
+            imageViewLine_3 = itemView.findViewById(R.id.imageview_travel_line_3);
             textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
             textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
             cardView = itemView.findViewById(R.id.cardview_travel);
             textViewLine_1 = itemView.findViewById(R.id.textview_travel_line_1);
             textViewLine_2 = itemView.findViewById(R.id.textview_travel_line_2);
-
+            textViewLine_3 = itemView.findViewById(R.id.textview_travel_line_3);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,14 +109,13 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         holder.textViewArrival.setText(fromtimetostring(currentTravel.getArrival(),true));
         holder.textViewDuration.setText("Duration "+(currentTravel.getArrival()-currentTravel.getDeparture()) + " min");
 
-        //TODO: Add all other tram/bus/boat line graphics
-        //TODO: Add graphics to bottom of travelcard
 
         lineGraphics(currentTravel.getLine_1(), holder.imageViewLine_1, holder.textViewLine_1);
         lineGraphics(currentTravel.getLine_2(), holder.imageViewLine_2, holder.textViewLine_2);
+        lineGraphics(currentTravel.getLine_3(), holder.imageViewLine_3, holder.textViewLine_3);
 
 
-        if(!currentTravel.getBest()){
+        if(currentTravel.getBest()){
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(MainActivity.getAppContext(), R.color.sus_green));
         }
 
@@ -184,6 +186,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
                     break;
                 case "WALK":
                     imageView.setImageResource(R.drawable.linjew);
+                    break;
+                case "":
                     break;
                 default:
                     imageView.setImageResource(R.drawable.linjedefault);

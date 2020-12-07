@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             "Chalmers", "Brunnsparken",
             "Lindholmspiren", "Lindholmsallén",
             "Järntorget", "Eriksbergstorget",
-            "Centralstationen"
+            "Centralstationen", "Stenpiren"
     };
     //RecyclerView
     private RecyclerView mRecyclerView;
@@ -424,19 +424,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Leg> legs;
         Leg leg_1;
         Leg leg_2;
+        Leg leg_3;
         Origin origin_1;
         Origin origin_2;
+        Origin origin_3;
         Destination destination_1;
         Destination destination_2;
+        Destination destination_3;
         Product product_1;
         Product product_2;
+        Product product_3;
         int id = 0;
         boolean change;
         String line_1 = "";
         String line_2 = "";
+        String line_3 = "";
         int duration_1 = 0;
         int duration_2 = 0;
-        int duration_wait = 0;
+        int duration_3 = 0;
+        int duration_wait_1 = 0;
+        int duration_wait_2 = 0;
         int score = 0;
         int departure;
         int arrival = 0;
@@ -463,7 +470,9 @@ public class MainActivity extends AppCompatActivity {
             switch (legs.size()) {
                 case 1:
                     duration_2 = 0;
-                    duration_wait = 0;
+                    duration_3 = 0;
+                    duration_wait_1 = 0;
+                    duration_wait_2 = 0;
                     change = false;
                     break;
 
@@ -472,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
                     destination_2 = leg_2.getDestination();
                     origin_2 = leg_2.getOrigin();
                     int departure_2 = timeToInt(origin_2.getTime());
-                    duration_wait = departure_2 - arrival;
+                    duration_wait_1 = departure_2 - arrival;
                     arrival = timeToInt(destination_2.getTime());
                     duration_2 = arrival - departure_2;
                     try {
@@ -483,11 +492,40 @@ public class MainActivity extends AppCompatActivity {
                     }
                     change = true;
                     break;
+                case 3:
+                    leg_2 = legs.get(1);
+                    destination_2 = leg_2.getDestination();
+                    origin_2 = leg_2.getOrigin();
+                    departure_2 = timeToInt(origin_2.getTime());
+                    duration_wait_1 = departure_2 - arrival;
+                    arrival = timeToInt(destination_2.getTime());
+                    duration_2 = arrival - departure_2;
+                    try {
+                        product_2 = leg_2.getProduct();
+                        line_2 = product_2.getNum();
+                    } catch (NullPointerException e) {
+                        line_2 = "WALK";
+                    }
+                    leg_3 = legs.get(2);
+                    destination_3 = leg_3.getDestination();
+                    origin_3 = leg_3.getOrigin();
+                    int departure_3 = timeToInt(origin_3.getTime());
+                    duration_wait_2 = departure_3 - arrival;
+                    arrival = timeToInt(destination_3.getTime());
+                    duration_2 = arrival - departure_3;
+                    try {
+                        product_3 = leg_3.getProduct();
+                        line_3 = product_3.getNum();
+                    } catch (NullPointerException e) {
+                        line_3 = "WALK";
+                    }
+                    change = true;
+                    break;
                 default:
                     continue;
             }
-            temp.add(new Travel(id, change, line_1, line_2,
-                    duration_1, duration_2, duration_wait, score, departure, arrival,
+            temp.add(new Travel(id, change, line_1, line_2, line_3,
+                    duration_1, duration_2, duration_3, duration_wait_1, duration_wait_2, score, departure, arrival,
                     from_name, to_name));
 
         }
