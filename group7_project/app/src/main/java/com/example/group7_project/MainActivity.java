@@ -79,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
             "Järntorget", "Eriksbergstorget",
             "Centralstationen", "Stenpiren"
     };
+    private static final String[] electricTravel = new String[]{
+            "58", "59", "60", "62", "82", "83", "84", "86",         //Buss-linjer (start på 58)
+            "90", "91", "92", "93", "94", "95", "97", "99",
+            "114", "184", "185", "193", "194", "196", "197",
+            "501", "502", "510", "513", "514", "515", "517",
+            "518", "519", "751", "753", "755", "757", "758",
+            "281", "282", "283", "284", "285", "285ÄLV", "286",     //Båt-linjer (start på 281)
+            "286ÄLV", "296", "298", "299", "322", "326", "361",
+            "362", "381", "847", "879", "899"
+    };
     //RecyclerView
     private RecyclerView mRecyclerView;
     private TravelAdapter mAdapter;
