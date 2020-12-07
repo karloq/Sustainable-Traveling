@@ -43,7 +43,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    //Debug messages
     private static final String TAG = "TravelData";
+    //Point system
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
     public static final String SHARED_PREFS = "sharedPrefs";
@@ -64,41 +66,37 @@ public class MainActivity extends AppCompatActivity {
     public static final String FILTER_ON = "filterOn";
     public static final String EXTRA_MAIN_SUSFILTER =
             "com.example.group7_project.EXTRA_SUSFILTER";
-
+    //Drawer
     private DrawerLayout drawer;
     boolean isDrawerOpen = false;
-
+    //Content
     private ArrayList<Travel> mTravelList_filtered;
     private ArrayList<Travel> mTravelList_full;
-
-    private RecyclerView mRecyclerView;
-    private TravelAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-    private AutoCompleteTextView edittext_from;
-    private AutoCompleteTextView edittext_to;
-
-    private ImageButton button_filter;
-
-    GlobalSustainabilityData userData;
-
-    private static final String BASE_URL_STOP = "https://api.resrobot.se/v2/";
-    private static final String BASE_URL_TRIP = "https://api.resrobot.se/v2/";
-    public ArrayList<Travel> travelList;
     ArrayList<Travel> temp = new ArrayList<>();
-
     private static final String[] STOPS = new String[]{
             "Chalmers", "Brunnsparken",
             "Lindholmspiren", "Lindholmsallén",
             "Järntorget", "Eriksbergstorget",
             "Centralstationen"
     };
+    //RecyclerView
+    private RecyclerView mRecyclerView;
+    private TravelAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    //UI
+    private AutoCompleteTextView edittext_from;
+    private AutoCompleteTextView edittext_to;
+    private ImageButton button_filter;
+    //Data
+    GlobalSustainabilityData userData;
+    //API
+    private static final String BASE_URL_STOP = "https://api.resrobot.se/v2/";
+    private static final String BASE_URL_TRIP = "https://api.resrobot.se/v2/";
 
+//========================= App methods ==========================================================//
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: Make splashscreen
-        //TODO:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -111,18 +109,16 @@ public class MainActivity extends AppCompatActivity {
         edittext_to = findViewById(R.id.edittext_search_to);
 
         String[] stops = STOPS;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, STOPS);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, STOPS);
         edittext_to.setAdapter(adapter);
         edittext_from.setAdapter(adapter);
-
-        //createTravelList();
-        //buildRecyclerView();
 
         edittext_to.setOnKeyListener(new View.OnKeyListener() {
 
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     updateFilterInit();
                     return true;
                 }
@@ -142,13 +138,15 @@ public class MainActivity extends AppCompatActivity {
         });
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
                     case R.id.nav_sus:
-                        Intent intent = new Intent(MainActivity.this, SustainabilityPageActivity.class);
+                        Intent intent = new Intent(MainActivity.this,
+                                SustainabilityPageActivity.class);
                         startActivity(intent);
                         break;
                     default:
@@ -171,49 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_FILTER_REQUEST);
             }
         });
-
         loadData();
-
-    }
-
-    public void updateFilterInit(){
-        String to = edittext_to.getText().toString();
-        String from = edittext_from.getText().toString();
-        fetchStopId_1(from, to);
-    }
-
-    public void updateFilter(String from, String to) throws IOException {
-        //TODO: Order according to time and sustainability
-        if(mTravelList_filtered != null) {
-            mTravelList_filtered.clear();
-        }
-        int maxscore = 0;
-        Stack sus = new Stack();
-
-        //TODO
-      for (Travel travel : mTravelList_full) {
-            String travelFrom = travel.getFrom();
-            String travelTo = travel.getTo();
-            if (travelFrom.contains(from) && travelTo.contains(to)) {
-                if (userData.isSustainabilityFilter() && travel.getScore() > 0) {
-                    mTravelList_filtered.add(travel);
-                }
-                if (!userData.isSustainabilityFilter()) {
-                    mTravelList_filtered.add(travel);
-                }
-                if (travel.getScore() > maxscore) {
-                    maxscore = travel.getScore();
-                    sus.push(travel);
-                }
-            }
-        }
-        try {
-            Travel susTravel = (Travel) sus.pop();
-            susTravel.setBest(true);
-        } catch (EmptyStackException e) {
-        }
-        mTravelList_filtered = new ArrayList<>(mTravelList_full);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -230,7 +186,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_FILTER_REQUEST && resultCode == RESULT_OK) {
             assert data != null;
-            userData.setSustainabilityFilter(data.getBooleanExtra(FilterActivity.EXTRA_SUSFILTER, false));
+            userData.setSustainabilityFilter(data.getBooleanExtra
+                    (FilterActivity.EXTRA_SUSFILTER, false));
 
             Toast.makeText(this, "Filter added", Toast.LENGTH_SHORT).show();
         } else {
@@ -238,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
         }
         saveData();
     }
+//===============================================================================================//
+
+//========================= Recyclerview and content methods ====================================//
 
     private void buildRecyclerView() {
         mRecyclerView = findViewById(R.id.RecyclerView_main);
@@ -262,12 +222,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLongItemClick(int position) {
                 int score = mAdapter.getTravel(position).getScore();
-                if(score > 0){
-                    userData.setLeafCounter(userData.getLeafCounter()+score);
+                if (score > 0) {
+                    userData.setLeafCounter(userData.getLeafCounter() + score);
                     saveData();
-                    Toast.makeText(MainActivity.this, "Saved points", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,
+                            "Saved points",
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Not the most sustainable option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,
+                            "Not the most sustainable option",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -275,15 +239,52 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createTravelList(String from, String to, ArrayList list) throws IOException {
-        //TODO: Add more travels with offsetted time
-        //TODO: Add rest of travels
-
-
         mTravelList_full = new ArrayList<>(list);
-
         mTravelList_filtered = new ArrayList<>();
-
     }
+
+    public void updateFilterInit() {
+        String to = edittext_to.getText().toString();
+        String from = edittext_from.getText().toString();
+        fetchStopId_1(from, to);
+    }
+
+    public void updateFilter(String from, String to) throws IOException {
+        //TODO: Order according to time and sustainability
+        if (mTravelList_filtered != null) {
+            mTravelList_filtered.clear();
+        }
+        int maxscore = 0;
+        Stack sus = new Stack();
+
+        //TODO
+        for (Travel travel : mTravelList_full) {
+            String travelFrom = travel.getFrom();
+            String travelTo = travel.getTo();
+            if (travelFrom.contains(from) && travelTo.contains(to)) {
+                if (userData.isSustainabilityFilter() && travel.getScore() > 0) {
+                    mTravelList_filtered.add(travel);
+                }
+                if (!userData.isSustainabilityFilter()) {
+                    mTravelList_filtered.add(travel);
+                }
+                if (travel.getScore() > maxscore) {
+                    maxscore = travel.getScore();
+                    sus.push(travel);
+                }
+            }
+        }
+        try {
+            Travel susTravel = (Travel) sus.pop();
+            susTravel.setBest(true);
+        } catch (EmptyStackException e) {
+        }
+        mTravelList_filtered = new ArrayList<>(mTravelList_full);
+        mAdapter.notifyDataSetChanged();
+    }
+//===============================================================================================//
+
+//=========================Data methods==========================================================//
 
     private void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -312,14 +313,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        userData.setLeafCounter(sharedPreferences.getInt(LEAF_COUNTER,0));
-        userData.setGreenTreeCounter(sharedPreferences.getInt(GREEN_TREE_COUNTER,0));
-        userData.setGoldTreeCounter(sharedPreferences.getInt(GOLD_TREE_COUNTER,0));
-        userData.setRank(sharedPreferences.getInt(RANK,1));
-        userData.setCurrent_month(sharedPreferences.getInt(CURRENT_MOTNH,0));
-        userData.setLeafs_oct(sharedPreferences.getInt(LEAFS_OCT,0));
-        userData.setLeafs_nov(sharedPreferences.getInt(LEAFS_NOV,0));
-        userData.setLeafs_dec(sharedPreferences.getInt(LEAFS_DEC,0));
+        userData.setLeafCounter(sharedPreferences.getInt(LEAF_COUNTER, 0));
+        userData.setGreenTreeCounter(sharedPreferences.getInt(GREEN_TREE_COUNTER, 0));
+        userData.setGoldTreeCounter(sharedPreferences.getInt(GOLD_TREE_COUNTER, 0));
+        userData.setRank(sharedPreferences.getInt(RANK, 1));
+        userData.setCurrent_month(sharedPreferences.getInt(CURRENT_MOTNH, 0));
+        userData.setLeafs_oct(sharedPreferences.getInt(LEAFS_OCT, 0));
+        userData.setLeafs_nov(sharedPreferences.getInt(LEAFS_NOV, 0));
+        userData.setLeafs_dec(sharedPreferences.getInt(LEAFS_DEC, 0));
         userData.setOctGreen(sharedPreferences.getBoolean(OCT_GREEN_CHECK, false));
         userData.setNovGreen(sharedPreferences.getBoolean(NOV_GREEN_CHECK, false));
         userData.setDecGreen(sharedPreferences.getBoolean(DEC_GREEN_CHECK, false));
@@ -328,12 +329,11 @@ public class MainActivity extends AppCompatActivity {
         userData.setDecGold(sharedPreferences.getBoolean(DEC_GOLD_CHECK, false));
         userData.setSustainabilityFilter(sharedPreferences.getBoolean(FILTER_ON, false));
     }
+//===============================================================================================//
 
-    public static Context getAppContext() {
-        return MainActivity.context;
-    }
 
-    public void fetchStopId_1(final String from, final String to){
+//=======================API methods ============================================================//
+    public void fetchStopId_1(final String from, final String to) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_STOP)
@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void fetchStopId_2(final String from, final String to, final int from_id){
+    public void fetchStopId_2(final String from, final String to, final int from_id) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_STOP)
@@ -367,13 +367,13 @@ public class MainActivity extends AppCompatActivity {
 
         final int[] stopId = {0};
         StopAPI stopAPI = retrofit.create(StopAPI.class);
-        Call<Stop> call = stopAPI.getStop(to+"(goteborg kn)", "json");
+        Call<Stop> call = stopAPI.getStop(to + "(goteborg kn)", "json");
         call.enqueue(new Callback<Stop>() {
             @Override
             public void onResponse(Call<Stop> call, Response<Stop> response) {
                 stopId[0] = response.body().getStoplocation().get(0).getId();
 
-               fillTravelList(from, to, from_id, stopId[0]);
+                fillTravelList(from, to, from_id, stopId[0]);
 
             }
 
@@ -384,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<Travel> fillTravelList(final String from_name, final String to_name, int from_id, int to_id){
+    public ArrayList<Travel> fillTravelList(final String from_name, final String to_name, int from_id, int to_id) {
         final ArrayList<Travel> temp = new ArrayList<>();
 
 
@@ -408,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ArrayList<Trip> trip_array = response.body().getTrips();
                 workWithTripList(trip_array, from_name, to_name);
-                }
+            }
 
             @Override
             public void onFailure(Call<TripPlan> call, Throwable t) {
@@ -452,7 +452,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 product_1 = leg_1.getProduct();
                 line_1 = product_1.getNum();
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 line_1 = "WALK";
             }
 
@@ -478,7 +478,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         product_2 = leg_2.getProduct();
                         line_2 = product_2.getNum();
-                    }catch (NullPointerException e){
+                    } catch (NullPointerException e) {
                         line_2 = "WALK";
                     }
                     change = true;
@@ -491,7 +491,7 @@ public class MainActivity extends AppCompatActivity {
                     from_name, to_name));
 
         }
-       try {
+        try {
             createTravelList(from_name, to_name, temp);
         } catch (IOException e) {
             e.printStackTrace();
@@ -503,9 +503,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+//===============================================================================================//
 
-    public int timeToInt(String time){
+//================= Helper methods ==============================================================//
+    public int timeToInt(String time) {
         StringBuilder sb = new StringBuilder(time);
-        return Integer.parseInt(sb.substring(0,2))*60 + Integer.parseInt(sb.substring(3,5));
+        return Integer.parseInt(sb.substring(0, 2)) * 60 + Integer.parseInt(sb.substring(3, 5));
     }
+
+    public static Context getAppContext() {
+        return MainActivity.context;
+    }
+
+//===============================================================================================//
 }
