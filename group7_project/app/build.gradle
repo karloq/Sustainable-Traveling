@@ -17,6 +17,13 @@ allprojects {
     }
 }
 android {
+
+    android {
+        compileOptions {
+            targetCompatibility = "8"
+            sourceCompatibility = "8"
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
@@ -38,6 +45,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -48,8 +56,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.cardview:cardview:1.0.0"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
     def lifecycle_version = "2.2.0"
 
@@ -62,4 +71,8 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
 }

@@ -5,8 +5,8 @@ public class Travel {
 
     private int id;
     private boolean change;
-    private int line_1;
-    private int line_2;
+    private String line_1;
+    private String line_2;
     private int duration_1;
     private int duration_2;
     private int duration_wait;
@@ -17,7 +17,7 @@ public class Travel {
     private String to;
     private boolean best;
 
-    public Travel(int id, boolean change, int line_1, int line_2, int duration_1, int duration_2, int duration_wait,
+    public Travel(int id, boolean change, String line_1, String line_2, int duration_1, int duration_2, int duration_wait,
                   int score, int departure, int arrival, String from, String to) {
         this.id = id;
         this.change = change;
@@ -33,19 +33,19 @@ public class Travel {
         this.best = false;
     }
 
-    public int getLine_1() {
+    public String getLine_1() {
         return line_1;
     }
 
-    public void setLine_1(int line_1) {
+    public void setLine_1(String line_1) {
         this.line_1 = line_1;
     }
 
-    public int getLine_2() {
+    public String getLine_2() {
         return line_2;
     }
 
-    public void setLine_2(int line_2) {
+    public void setLine_2(String line_2) {
         this.line_2 = line_2;
     }
 
