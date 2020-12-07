@@ -113,7 +113,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         lineGraphics(currentTravel.getLine_2(), holder.imageViewLine_2, holder.textViewLine_2);
 
 
-        if(currentTravel.getBest()){
+        if(!currentTravel.getBest()){
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(MainActivity.getAppContext(), R.color.sus_green));
         }
 
@@ -175,6 +175,12 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
                     break;
                 case "10":
                     imageView.setImageResource(R.drawable.linje10);
+                    break;
+                case "285ÄLV":
+                    imageView.setImageResource(R.drawable.linje285);
+                    break;
+                case "286ÄLV":
+                    imageView.setImageResource(R.drawable.linje286);
                     break;
                 case "WALK":
                     imageView.setImageResource(R.drawable.linjew);
