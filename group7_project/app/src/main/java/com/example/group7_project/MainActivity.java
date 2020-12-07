@@ -44,7 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     //Debug messages
-    private static final String TAG = "TravelData";
+    private static final String TAG = "MainActivity";
     //Point system
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;

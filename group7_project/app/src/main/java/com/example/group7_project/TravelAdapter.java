@@ -1,5 +1,6 @@
 package com.example.group7_project;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelViewHolder> {
+    private static final String TAG = "TravelAdapter";
     private ArrayList<Travel> mtravelList;
 
     private OnItemClickListener mlistener;
-
-
 
     public  interface OnItemClickListener {
         void onItemClick(int position);
@@ -33,21 +33,25 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
         private TextView textViewFrom;
         private TextView textViewDeparture;
         private TextView textViewArrival;
-        private ImageView imageViewLine;
+        private ImageView imageViewLine_1;
+        private ImageView imageViewLine_2;
         private CardView cardView;
         private TextView textViewDuration;
-        //private TextView textViewDuration;
-        //Tracking button
+        private TextView textViewLine_1;
+        private TextView textViewLine_2;
 
         public TravelViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             textViewFrom = itemView.findViewById(R.id.textview_travel_from);
             textViewDeparture = itemView.findViewById(R.id.textview_travel_departure);
             textViewArrival = itemView.findViewById(R.id.textview_travel_arrival);
-            imageViewLine = itemView.findViewById(R.id.imageview_travel_line);
+            imageViewLine_1 = itemView.findViewById(R.id.imageview_travel_line_1);
+            imageViewLine_2 = itemView.findViewById(R.id.imageview_travel_line_2);
             textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
-            //textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
+            textViewDuration = itemView.findViewById(R.id.textview_travel_duration);
             cardView = itemView.findViewById(R.id.cardview_travel);
+            textViewLine_1 = itemView.findViewById(R.id.textview_travel_line_1);
+            textViewLine_2 = itemView.findViewById(R.id.textview_travel_line_2);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,11 +108,11 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
 
         //TODO: Add all other tram/bus/boat line graphics
         //TODO: Add graphics to bottom of travelcard
-        if (currentTravel.getLine_1().equals("7")) {
-            holder.imageViewLine.setImageResource(R.drawable.linje7);
-        }else {
-            holder.imageViewLine.setImageResource(R.drawable.linje6);
-        }
+
+        lineGraphics(currentTravel.getLine_1(), holder.imageViewLine_1, holder.textViewLine_1);
+        lineGraphics(currentTravel.getLine_2(), holder.imageViewLine_2, holder.textViewLine_2);
+
+
         if(currentTravel.getBest()){
             holder.cardView.setCardBackgroundColor(ContextCompat.getColor(MainActivity.getAppContext(), R.color.sus_green));
         }
@@ -136,6 +140,54 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
 
         return string.toString();
     }
+
+    public void lineGraphics(String line, ImageView imageView, TextView textView) {
+        Log.d(TAG, "line: " + line);
+        if(line == null){
+        }else{
+            switch (line) {
+                case "7":
+                    imageView.setImageResource(R.drawable.linje7);
+                    break;
+                case "6":
+                    imageView.setImageResource(R.drawable.linje6);
+                    break;
+                case "241":
+                    imageView.setImageResource(R.drawable.linje241);
+                    break;
+                case "50":
+                    imageView.setImageResource(R.drawable.linje50);
+                    break;
+                case "60":
+                    imageView.setImageResource(R.drawable.linje60);
+                    break;
+                case "9":
+                    imageView.setImageResource(R.drawable.linje9);
+                    break;
+                case "1":
+                    imageView.setImageResource(R.drawable.linje1);
+                    break;
+                case "16":
+                    imageView.setImageResource(R.drawable.linje16);
+                    break;
+                case "13":
+                    imageView.setImageResource(R.drawable.linje13);
+                    break;
+                case "10":
+                    imageView.setImageResource(R.drawable.linje10);
+                    break;
+                case "WALK":
+                    imageView.setImageResource(R.drawable.linjew);
+                    break;
+                default:
+                    imageView.setImageResource(R.drawable.linjedefault);
+                    textView.setText(line);
+                    break;
+            }
+        }
+
+    }
+
     @Override
     public int getItemCount() {
         return mtravelList.size();
