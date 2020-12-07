@@ -213,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (EmptyStackException e) {
         }
         mTravelList_filtered = new ArrayList<>(mTravelList_full);
-        Log.d(TAG, "updated travellist");
         mAdapter.notifyDataSetChanged();
     }
 
@@ -348,9 +347,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Stop> call, Response<Stop> response) {
                 stopId[0] = response.body().getStoplocation().get(0).getId();
-                Log.d(TAG, String.valueOf(stopId[0]));
-                Log.d(TAG, "successful stop-fetch");
-
                 fetchStopId_2(from, to, stopId[0]);
 
             }
@@ -376,8 +372,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Stop> call, Response<Stop> response) {
                 stopId[0] = response.body().getStoplocation().get(0).getId();
-                Log.d(TAG, String.valueOf(stopId[0]));
-                Log.d(TAG, "successful stop-fetch");
 
                fillTravelList(from, to, from_id, stopId[0]);
 
@@ -410,13 +404,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TripPlan> call, Response<TripPlan> response) {
                 Log.d(TAG, "successful trip-fetch");
-                Log.d(TAG, response.body().toString());
+
 
                 ArrayList<Trip> trip_array = response.body().getTrips();
-                Log.d(TAG, "GOING TO WORK");
                 workWithTripList(trip_array, from_name, to_name);
-                Log.d(TAG, "BACK FROM WORK" + mTravelList_full.get(0).getFrom());
-
                 }
 
             @Override
@@ -429,7 +420,6 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void workWithTripList(ArrayList<Trip> trip_array, String from_name, String to_name) {
-        Log.d(TAG, "AT  WORK");
         Trip trip;
         ArrayList<Leg> legs;
         Leg leg_1;
@@ -455,7 +445,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < trip_array.size(); i++) {
-            Log.d(TAG, "in loop");
             trip = trip_array.get(i);
             legs = trip.getLeglist().getLegs();
             leg_1 = legs.get(0);
@@ -490,32 +479,26 @@ public class MainActivity extends AppCompatActivity {
                         product_2 = leg_2.getProduct();
                         line_2 = product_2.getNum();
                     }catch (NullPointerException e){
-                        Log.d(TAG, "walk");
                         line_2 = "WALK";
                     }
                     change = true;
                     break;
                 default:
-                    Log.d(TAG, String.valueOf(legs.size()));
-                    Log.d(TAG, "default");
                     continue;
             }
             temp.add(new Travel(id, change, line_1, line_2,
                     duration_1, duration_2, duration_wait, score, departure, arrival,
                     from_name, to_name));
-            Log.d(TAG, "added");
 
         }
        try {
             createTravelList(from_name, to_name, temp);
-            Log.d(TAG, "created travellist");
         } catch (IOException e) {
             e.printStackTrace();
         }
         buildRecyclerView();
         try {
             updateFilter(from_name, to_name);
-            Log.d(TAG, "back from update");
         } catch (IOException e) {
             e.printStackTrace();
         }
