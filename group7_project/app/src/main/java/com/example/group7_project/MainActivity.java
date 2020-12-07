@@ -23,11 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "TravelData";
     private static Context context;
     public static final int ADD_FILTER_REQUEST = 1;
     public static final String SHARED_PREFS = "sharedPrefs";
@@ -96,7 +98,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
-                    updateFilter();
+                    try {
+                        updateFilter();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return true;
                 }
                 return false;
@@ -150,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void updateFilter() {
+    public void updateFilter() throws IOException {
         //TODO: Order according to time and sustainability
         if(mTravelList_filtered != null) {
             mTravelList_filtered.clear();
@@ -245,13 +251,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createTravelList(String from, String to) {
+    public void createTravelList(String from, String to) throws IOException {
         //TODO: Add more travels with offsetted time
         //TODO: Add rest of travels
-        TravelData traveldata = new TravelData(from, to);
-        traveldata.fetchStopId_1(from, to);
 
-        mTravelList_full = new ArrayList<>(traveldata.getTravelList());
+
+        final TravelData traveldata = new TravelData(from, to);
+
+        mTravelList_full = new ArrayList<>(traveldata.fetchStopId_1(from, to));
+
         mTravelList_filtered = new ArrayList<>();
 
     }

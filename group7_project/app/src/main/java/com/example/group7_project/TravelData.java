@@ -21,18 +21,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class TravelData {
+public class TravelData{
     private static final String TAG = "TravelData";
     private static final String BASE_URL_STOP = "https://api.resrobot.se/v2/";
     private static final String BASE_URL_TRIP = "https://api.resrobot.se/v2/";
-    public ArrayList travelList;
+    public ArrayList<Travel> travelList;
+    ArrayList<Travel> temp;
+    ArrayList<Travel> temp_2;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public TravelData(String from, String to) {
-        fetchStopId_1(from, to);
+        //ArrayList<Travel> temparray = fetchStopId_1(from, to);
+        //travelList = new ArrayList<>(temparray);
     }
 
-    public int fetchStopId_1(final String from, final String to){
+
+    public ArrayList<Travel> fetchStopId_1(final String from, final String to){
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_STOP)
@@ -49,7 +54,7 @@ public class TravelData {
                 Log.d(TAG, String.valueOf(stopId[0]));
                 Log.d(TAG, "successful stop-fetch");
 
-                fetchStopId_2(from, to, stopId[0]);
+                temp_2 = new ArrayList<>(fetchStopId_2(from, to, stopId[0]));
 
         }
 
@@ -58,10 +63,10 @@ public class TravelData {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
             }
         });
-        return stopId[0];
+        return temp_2;
     }
 
-    public int fetchStopId_2(final String from, final String to, final int from_id){
+    public ArrayList<Travel> fetchStopId_2(final String from, final String to, final int from_id){
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_STOP)
@@ -78,7 +83,7 @@ public class TravelData {
                 Log.d(TAG, String.valueOf(stopId[0]));
                 Log.d(TAG, "successful stop-fetch");
 
-                fillTravelList(from, to, from_id, stopId[0]);
+                temp = new ArrayList<>(fillTravelList(from, to, from_id, stopId[0]));
 
             }
 
@@ -87,10 +92,10 @@ public class TravelData {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
             }
         });
-        return stopId[0];
+        return temp;
     }
 
-    public void fillTravelList(final String from_name, final String to_name, int from_id, int to_id){
+    public ArrayList<Travel> fillTravelList(final String from_name, final String to_name, int from_id, int to_id){
         final ArrayList<Travel> temp = new ArrayList<>();
 
 
@@ -171,6 +176,7 @@ public class TravelData {
                             from_name, to_name));
 
                 }
+
             }
 
             @Override
@@ -178,7 +184,7 @@ public class TravelData {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
             }
         });
-       travelList = new ArrayList(temp);
+       return temp;
     }
 
     public static int timeToInt(String time){
@@ -194,6 +200,7 @@ public class TravelData {
     public void setTravelList(ArrayList travelList) {
         this.travelList = travelList;
     }
+
 
 }
 
