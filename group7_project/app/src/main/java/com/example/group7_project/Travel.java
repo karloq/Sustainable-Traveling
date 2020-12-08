@@ -1,7 +1,7 @@
 package com.example.group7_project;
 
 
-public class Travel {
+public class Travel{
 
     private int id;
     private boolean change;

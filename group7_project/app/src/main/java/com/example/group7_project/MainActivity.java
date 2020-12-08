@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.group7_project.model_stop.Stop;
 import com.example.group7_project.model_trip.TripPlan;
 import com.example.group7_project.model_trip.trip.Trip;
@@ -30,17 +28,14 @@ import com.example.group7_project.model_trip.trip.leg_list.leg.Leg;
 import com.example.group7_project.model_trip.trip.leg_list.leg.Origin;
 import com.example.group7_project.model_trip.trip.leg_list.leg.Product;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Stack;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     //Debug messages
@@ -79,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
             "Järntorget", "Eriksbergstorget",
             "Centralstationen", "Stenpiren"
     };
-    private static final String[] electricTravel = new String[]{
-            "58", "59", "60", "62", "82", "83", "84", "86",         //Buss-linjer (start på 58)
+    private static ArrayList<String> electricTravel = new ArrayList<>(Arrays.asList(
+            "55", "58", "59", "60", "62", "82", "83", "84", "86",         //Buss-linjer (start på 58)
             "90", "91", "92", "93", "94", "95", "97", "99",
             "114", "184", "185", "193", "194", "196", "197",
             "501", "502", "510", "513", "514", "515", "517",
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             "281", "282", "283", "284", "285", "285ÄLV", "286",     //Båt-linjer (start på 281)
             "286ÄLV", "296", "298", "299", "322", "326", "361",
             "362", "381", "847", "879", "899"
-    };
+    ));
     //RecyclerView
     private RecyclerView mRecyclerView;
     private TravelAdapter mAdapter;
@@ -103,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL_STOP = "https://api.resrobot.se/v2/";
     private static final String BASE_URL_TRIP = "https://api.resrobot.se/v2/";
 
-//========================= App methods ==========================================================//
+    //========================= App methods ==========================================================//
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,25 +145,25 @@ public class MainActivity extends AppCompatActivity {
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()) {
-                    case R.id.nav_sus:
-                        Intent intent = new Intent(MainActivity.this,
-                                SustainabilityPageActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "You have clicked, but it's not implemented. Yet...",
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                }
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+                        switch (item.getItemId()) {
+                            case R.id.nav_sus:
+                                Intent intent = new Intent(MainActivity.this,
+                                        SustainabilityPageActivity.class);
+                                startActivity(intent);
+                                break;
+                            default:
+                                Toast toast = Toast.makeText(getApplicationContext(),
+                                        "You have clicked, but it's not implemented. Yet...",
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                        }
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
 
         button_filter = findViewById(R.id.button_search_filter);
         button_filter.setOnClickListener(new View.OnClickListener() {
@@ -231,9 +226,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(int position) {
-                int score = mAdapter.getTravel(position).getScore();
-                if (score > 0) {
-                    userData.setLeafCounter(userData.getLeafCounter() + score);
+                boolean best = mAdapter.getTravel(position).getBest();
+                if (best) {
+                    userData.setLeafCounter(userData.getLeafCounter() + 1);
                     saveData();
                     Toast.makeText(MainActivity.this,
                             "Saved points",
@@ -278,19 +273,26 @@ public class MainActivity extends AppCompatActivity {
                 if (!userData.isSustainabilityFilter()) {
                     mTravelList_filtered.add(travel);
                 }
-                if (travel.getScore() > maxscore) {
-                    maxscore = travel.getScore();
-                    sus.push(travel);
-                }
             }
         }
-        try {
-            Travel susTravel = (Travel) sus.pop();
-            susTravel.setBest(true);
-        } catch (EmptyStackException e) {
-        }
+        fix_list();
         mTravelList_filtered = new ArrayList<>(mTravelList_full);
         mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Sorts mTravelList_filtered after score of each travel
+     */
+    private void fix_list() {
+        for (Travel t : mTravelList_filtered) {
+            if (electricTravel.contains(t.getLine_1()) || electricTravel.contains(t.getLine_2()) || electricTravel.contains(t.getLine_3())) {
+                t.setBest(true);
+                t.setScore(t.getDeparture() - 5);
+            } else {
+                t.setScore(t.getDeparture());
+            }
+        }
+        Collections.sort(mTravelList_filtered, Comparator.comparing(Travel::getScore));
     }
 //===============================================================================================//
 
@@ -342,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 //===============================================================================================//
 
 
-//=======================API methods ============================================================//
+    //=======================API methods ============================================================//
     public void fetchStopId_1(final String from, final String to) {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -553,7 +555,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //===============================================================================================//
 
-//================= Helper methods ==============================================================//
+    //================= Helper methods ==============================================================//
     public int timeToInt(String time) {
         StringBuilder sb = new StringBuilder(time);
         return Integer.parseInt(sb.substring(0, 2)) * 60 + Integer.parseInt(sb.substring(3, 5));
