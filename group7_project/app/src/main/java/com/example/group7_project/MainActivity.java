@@ -35,7 +35,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     //Debug messages
@@ -67,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
     //Content
     private ArrayList<Travel> mTravelList_filtered;
     private ArrayList<Travel> mTravelList_full;
-    ArrayList<Travel> temp = new ArrayList<>();
     private static final String[] STOPS = new String[]{
             "Chalmers", "Brunnsparken",
-            "Lindholmspiren", "Lindholmsallén",
+            "Lindholmspiren", "Lindholmsplatsen",
             "Järntorget", "Eriksbergstorget",
-            "Centralstationen", "Stenpiren"
+            "Centralstationen", "Stenpiren",
+            "Vasaplatsen", "Chalmers Tvärgata"
     };
     private static ArrayList<String> electricTravel = new ArrayList<>(Arrays.asList(
             "55", "58", "59", "60", "62", "82", "83", "84", "86",         //Buss-linjer (start på 58)
@@ -105,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         userData = (GlobalSustainabilityData) getApplicationContext();
 
         MainActivity.context = getApplicationContext();
@@ -124,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN)
                         && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    if (mTravelList_filtered != null) mTravelList_filtered.clear();
+                    if (mTravelList_full != null) mTravelList_full.clear();
                     updateFilterInit();
                     return true;
                 }
@@ -244,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createTravelList(String from, String to, ArrayList list) throws IOException {
+        if (mTravelList_full != null) mTravelList_full.clear();
         mTravelList_full = new ArrayList<>(list);
         mTravelList_filtered = new ArrayList<>();
     }
@@ -255,44 +260,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFilter(String from, String to) throws IOException {
-        //TODO: Order according to time and sustainability
-        if (mTravelList_filtered != null) {
-            mTravelList_filtered.clear();
-        }
-        int maxscore = 0;
-        Stack sus = new Stack();
 
-        //TODO
-        for (Travel travel : mTravelList_full) {
-            String travelFrom = travel.getFrom();
-            String travelTo = travel.getTo();
-            if (travelFrom.contains(from) && travelTo.contains(to)) {
-                if (userData.isSustainabilityFilter() && travel.getScore() > 0) {
-                    mTravelList_filtered.add(travel);
-                }
-                if (!userData.isSustainabilityFilter()) {
-                    mTravelList_filtered.add(travel);
-                }
-            }
-        }
-        fix_list();
-        mTravelList_filtered = new ArrayList<>(mTravelList_full);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Sorts mTravelList_filtered after score of each travel
-     */
-    private void fix_list() {
-        for (Travel t : mTravelList_filtered) {
+        for (Travel t : mTravelList_full) {
             if (electricTravel.contains(t.getLine_1()) || electricTravel.contains(t.getLine_2()) || electricTravel.contains(t.getLine_3())) {
-                t.setBest(true);
                 t.setScore(t.getDeparture() - 5);
+                t.setBest(true);
             } else {
                 t.setScore(t.getDeparture());
             }
+            if ((userData.isSustainabilityFilter() && t.getBest()) || !userData.isSustainabilityFilter()) {
+                mTravelList_filtered.add(t);
+            }
         }
         Collections.sort(mTravelList_filtered, Comparator.comparing(Travel::getScore));
+        mAdapter.notifyDataSetChanged();
     }
 //===============================================================================================//
 
@@ -396,10 +377,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<Travel> fillTravelList(final String from_name, final String to_name, int from_id, int to_id) {
-        final ArrayList<Travel> temp = new ArrayList<>();
-
-
+    public void fillTravelList(final String from_name, final String to_name, int from_id, int to_id) {
         String from = from_name;
         String to = to_name;
         boolean best = false;
@@ -417,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<TripPlan> call, Response<TripPlan> response) {
                 Log.d(TAG, "successful trip-fetch");
 
-
                 ArrayList<Trip> trip_array = response.body().getTrips();
                 workWithTripList(trip_array, from_name, to_name);
             }
@@ -427,7 +404,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure: Something went wrong: " + t.getMessage());
             }
         });
-        return temp;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -461,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
         int arrival = 0;
         boolean walk_1;
         boolean walk_2;
-
+        ArrayList<Travel> temp = new ArrayList<>();
 
         for (int i = 0; i < trip_array.size(); i++) {
             trip = trip_array.get(i);
