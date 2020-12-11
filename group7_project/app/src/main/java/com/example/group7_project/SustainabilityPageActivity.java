@@ -34,7 +34,7 @@ public class SustainabilityPageActivity extends AppCompatActivity {
     public ImageView picTree, picRanking;
     TextView rankText, greenTrees, goldTrees, leafs, leafsRemaining;
     ImageButton button_back;
-    Button statistics_button;
+    ImageButton statistics_button;
     int toNextLevel;
 
     // Levels when a tree gets leveled-up

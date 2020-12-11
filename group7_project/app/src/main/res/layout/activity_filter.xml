@@ -150,7 +150,7 @@
         android:layout_below="@id/horizontaldivider_00"
         android:layout_toRightOf="@+id/textview_filter_suschoose"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="20dp" />
+        />
 
     <View
         android:id="@+id/horizontaldivider_0"
@@ -239,7 +239,7 @@
         android:layout_below="@id/horizontaldivider_3"
         android:layout_toRightOf="@+id/textview_filter_nearby"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="240dp" />
+        android:layout_marginStart="220dp" />
 
     <TextView
         android:id="@+id/textview_filter_nearbywalk"
@@ -288,7 +288,7 @@
         android:layout_below="@id/horizontaldivider_5"
         android:layout_toRightOf="@+id/textview_filter_nearby"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="240dp" />
+        android:layout_marginStart="220dp" />
 
     <TextView
         android:id="@+id/textview_filter_showwalk"
