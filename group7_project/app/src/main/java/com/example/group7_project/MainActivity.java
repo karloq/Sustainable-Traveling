@@ -71,11 +71,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Travel> mTravelList_filtered;
     private ArrayList<Travel> mTravelList_full;
     private static final String[] STOPS = new String[]{
-            "Chalmers", "Brunnsparken",
-            "Lindholmspiren", "Lindholmsplatsen",
-            "Järntorget", "Eriksbergstorget",
-            "Centralstationen", "Stenpiren",
-            "Vasaplatsen", "Chalmers Tvärgata"
+            "Brunnsparken","Centralstationen", "Chalmers",
+            "Chalmers Tvärgata", "Eriksbergstorget",
+            "Järntorget", "Lilla Bommen", "Lindholmspiren", "Lindholmsplatsen",
+            "Stenpiren", "Vasaplatsen"
     };
     private static ArrayList<String> electricTravel = new ArrayList<>(Arrays.asList(
             "55", "58", "59", "60", "62", "82", "83", "84", "86",         //Buss-linjer (start på 58)
