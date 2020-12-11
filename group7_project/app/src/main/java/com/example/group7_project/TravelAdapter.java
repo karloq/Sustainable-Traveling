@@ -184,6 +184,12 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.TravelView
                 case "286ÄLV":
                     imageView.setImageResource(R.drawable.linje286);
                     break;
+                case "55":
+                    imageView.setImageResource(R.drawable.linje55);
+                    break;
+                case "58":
+                    imageView.setImageResource(R.drawable.linje58);
+                    break;
                 case "WALK":
                     imageView.setImageResource(R.drawable.linjew);
                     break;
