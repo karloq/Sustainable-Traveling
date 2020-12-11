@@ -175,7 +175,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:text="@string/sustainability_text"/>
 
@@ -229,14 +229,14 @@
 
                 <TextView
                     android:id="@+id/text_scoreboard"
-                    android:layout_width="170dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="20dp"
                     android:textSize="14sp"
                     android:textAlignment="center"
-                    android:text="Du reser mer hållbart än X% av våra resenärer"/>
+                    android:text="You travel more sustainable than X% of our commuters"/>
 
             </RelativeLayout>
 

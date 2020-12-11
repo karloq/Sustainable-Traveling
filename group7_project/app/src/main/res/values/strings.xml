@@ -8,16 +8,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="filters">Filters</string>
-    <string name="travel_time">Restid 10 år</string>
+    <string name="travel_time">Travel time 10 years</string>
     <string name="sustainability_year_start">2020</string>
     <string name="sustainability_year_end"> - 2030</string>
-    <string name="sustainability_text">Ditt bidrag till klimatet</string>
-    <string name="motivating_text">Välj gröna resor för att få ditt träd att växa</string>
+    <string name="sustainability_text">Your contribution to the climate</string>
+    <string name="motivating_text">Choose green journeys to make the tree grow</string>
 
-    <string name="sustainability_relative_20">Du reser mer hållbart än 20% av våra resenärer</string>
-    <string name="sustainability_relative_40">Du reser mer hållbart än 40% av våra resenärer</string>
-    <string name="sustainability_relative_60">Du reser mer hållbart än 60% av våra resenärer</string>
-    <string name="sustainability_relative_80">Du reser mer hållbart än 80% av våra resenärer</string>
-    <string name="sustainability_relative_99">Du reser mer hållbart än 99% av våra resenärer</string>
+    <string name="sustainability_relative_20">You travel more sustainable than 20% of our commuters</string>
+    <string name="sustainability_relative_40">You travel more sustainable than 40% of our commuters</string>
+    <string name="sustainability_relative_60">You travel more sustainable than 60% of our commuters</string>
+    <string name="sustainability_relative_80">You travel more sustainable than 80% of our commuters</string>
+    <string name="sustainability_relative_99">You travel more sustainable than 99% of our commuters</string>
 
 </resources>
