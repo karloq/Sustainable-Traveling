@@ -146,14 +146,14 @@
 
         <TextView
             android:id="@+id/levelDescription"
-            android:layout_width="200dp"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/nbGreenTrees"
             android:layout_marginTop="70dp"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:text="För att nå nästa nivå behöver du samla X miljöresor"/>
+            android:text="To reach the next level, you need to collect X green trips"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/scoreboardCard"
