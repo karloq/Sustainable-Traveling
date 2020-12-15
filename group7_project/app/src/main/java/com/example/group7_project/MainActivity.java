@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.group7_project.model_stop.Stop;
 import com.example.group7_project.model_trip.TripPlan;
 import com.example.group7_project.model_trip.trip.Trip;
@@ -28,17 +30,18 @@ import com.example.group7_project.model_trip.trip.leg_list.leg.Leg;
 import com.example.group7_project.model_trip.trip.leg_list.leg.Origin;
 import com.example.group7_project.model_trip.trip.leg_list.leg.Product;
 import com.google.android.material.navigation.NavigationView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     //Debug messages
@@ -231,11 +234,9 @@ public class MainActivity extends AppCompatActivity {
             public void onLongItemClick(int position) {
                 boolean best = mAdapter.getTravel(position).getBest();
                 if (best) {
+                    openPopup();
                     userData.setLeafCounter(userData.getLeafCounter() + 1);
                     saveData();
-                    Toast.makeText(MainActivity.this,
-                            "Saved points",
-                            Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Not the most sustainable option",
@@ -243,6 +244,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void openPopup() {
+        Popup popup = new Popup();
+        popup.show(getSupportFragmentManager(), "example");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -258,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
         fetchStopId_1(from, to);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateFilter(String from, String to) throws IOException {
 
         for (Travel t : mTravelList_full) {
@@ -299,7 +306,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean(FILTER_ON, userData.isSustainabilityFilter());
         editor.apply();
 
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
 
     }
 
